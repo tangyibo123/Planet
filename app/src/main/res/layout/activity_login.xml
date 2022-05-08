@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/start"
+        android:layout_margin="20dp"/>
+    <EditText
+        android:id="@+id/et_number"
+        android:layout_width="350sp"
+        android:layout_height="40dp"
+        android:hint="@string/login_phone_number"
+        android:textSize="20sp"
+        android:background="@drawable/login_edit"
+        android:layout_margin="10dp"/>
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_ver_code"
+            android:layout_width="230dp"
+            android:layout_height="40dp"
+            android:background="@drawable/login_edit"
+            android:hint="@string/login_vercode"
+            android:textSize="20sp"/>
+
+        <Button
+            android:id="@+id/bu_send"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/corner_login"
+            android:text="@string/login_send"
+            android:textColor="@color/white_ff"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bu_login"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
+        android:text="一键注册 / 登录"
+        android:gravity="center"
+        android:textColor="@color/white_ff"
+        android:textSize="20sp"
+        android:background="@drawable/corner_login"
+        android:layout_margin="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iv_circle"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:src="@drawable/login_circle"/>
+
+        <TextView
+            android:id="@+id/tv_agree"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="  登录注册即表示同意"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/tv_ment"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="星球用户协议、"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/tv_yinsi"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="隐私政策"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/test_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="测试入口"/>
+
+
+</LinearLayout>

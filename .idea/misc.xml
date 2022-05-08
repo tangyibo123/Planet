@@ -3,7 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/drawable/corner_exp.xml" value="0.23385416666666667" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/drawable/corner_login.xml" value="0.14802631578947367" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/drawable/corner_view.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26564102564102565" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/drawable/login_edit.xml" value="0.14802631578947367" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_guide.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_login.xml" value="0.12" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_main.xml" value="0.2390625" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_start.xml" value="0.2" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/dialog_ver_code.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_pager_guide_1.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_pager_guide_2.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_pager_guide_3.xml" value="0.176" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.26564102564102565" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/framework/src/main/res/drawable/ic_launcher_background.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/framework/src/main/res/layout/activity_main.xml" value="0.1296875" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/framework/src/main/res/layout/dialog_loading.xml" value="0.16019736842105264" />
       </map>
     </option>
   </component>

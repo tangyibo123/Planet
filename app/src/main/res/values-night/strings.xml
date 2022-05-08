@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login_send">发送</string>
+    <string name="login_vercode">验证码</string>
+    <string name="login_phone_number">手机号码</string>
+</resources>
