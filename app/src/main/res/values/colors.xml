@@ -12,4 +12,5 @@
     <color name="green_200">#698b22</color>
     <color name="grey">#636363</color>
     <color name="dark">#ff454545</color>
+    <color name="star_bg">#12121F</color>
 </resources>

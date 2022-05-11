@@ -15,19 +15,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.tangyibo.framework.base.BaseActivity;
-import com.tangyibo.framework.base.BaseUIActivity;
 import com.tangyibo.framework.bmob.BmobManager;
 import com.tangyibo.framework.bmob.PlanetUser;
 import com.tangyibo.framework.entity.Constants;
-import com.tangyibo.framework.manager.DialogManager;
 import com.tangyibo.framework.utils.SpUtils;
-import com.tangyibo.framework.view.DialogView;
 import com.tangyibo.framework.view.LoadingView;
-import com.tangyibo.framework.view.TouchPictureView;
 import com.tangyibo.planet.MainActivity;
 import com.tangyibo.planet.R;
 
@@ -49,7 +44,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private Button bu_send;
     private Button bu_login;
     private ImageView iv_circle;
-    private TextView test_login;
+    private TextView tv_test;
     private LoadingView dv_loading;
 
     //60s倒计时
@@ -89,8 +84,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         bu_login.setOnClickListener(this);
         iv_circle = findViewById(R.id.iv_circle);
         iv_circle.setOnClickListener(this);
-        test_login.findViewById(R.id.test_login);
-        test_login.setOnClickListener(this);
+        tv_test = findViewById(R.id.tv_test);
+        tv_test.setOnClickListener(this);
         dv_loading = new LoadingView(this);
     }
 
@@ -128,7 +123,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     Toast.makeText(this, "请先阅读用户协议、隐私政策并同意！", Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.test_login:
+            case R.id.tv_test:
                 //测试免注册登录
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
