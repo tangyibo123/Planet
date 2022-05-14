@@ -60,6 +60,7 @@
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="你的应用包名.BmobContentProvider">
         </provider>
+
     </application>
 
 </manifest>

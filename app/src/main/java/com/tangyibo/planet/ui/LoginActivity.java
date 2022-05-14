@@ -79,7 +79,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         bu_send = findViewById(R.id.bu_send);
         bu_send.setOnClickListener(this);
         bu_login = findViewById(R.id.bu_login);
-        bu_login.setBackground(ContextCompat.getDrawable(this, R.drawable.corner_view));
+        //bu_login.setBackground(ContextCompat.getDrawable(this, R.drawable.corner_unuse));
         SpUtils.getInstance().putBoolean(Constants.SP_AGREEMENT, false);
         bu_login.setOnClickListener(this);
         iv_circle = findViewById(R.id.iv_circle);
@@ -106,7 +106,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.iv_circle:
                 if(!agree){
                     iv_circle.setImageResource(R.drawable.login_agree);
-                    bu_login.setBackground(ContextCompat.getDrawable(this, R.drawable.corner_login));
+                    bu_login.setBackground(ContextCompat.getDrawable(this, R.drawable.corner_unuse));
                     SpUtils.getInstance().putBoolean(Constants.SP_AGREEMENT, true);
                 }
                 else {
