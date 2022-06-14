@@ -31,7 +31,7 @@ public class BmobManager {
 
     private volatile static BmobManager mInstance = null;
 
-    public static BmobManager getmInstance() {
+    public static BmobManager getInstance() {
         if(mInstance == null){
             synchronized (BmobManager.class){
                 if (mInstance == null){
@@ -40,6 +40,17 @@ public class BmobManager {
             }
         }
         return mInstance;
+    }
+
+    /**
+     * 初始化Bmob
+     *
+     * @param mContext
+     */
+    public void initBmob(Context mContext) {
+        //如果Bmob绑定独立域名，则需要在初始化之前重置
+        //Bmob.resetDomain(BMOB_NEW_DOMAIN);
+        Bmob.initialize(mContext, BmobKey);
     }
 
     /**

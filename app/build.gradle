@@ -37,23 +37,21 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     //Bmob
-    implementation 'io.github.bmob:android-sdk:3.8.12'
+    implementation 'io.github.bmob:android-sdk:3.8.13'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'com.squareup.okhttp3:okhttp:4.8.1'
     implementation 'com.squareup.okio:okio:2.2.2'
     implementation 'com.google.code.gson:gson:2.8.5'
 
-    //3D球形云实现星球标签效果
-    implementation 'com.moxun:tagcloudlib:1.2.0'
-
     //第三方图片加载框架Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
 
-    //
+    //头像的圆圈图片view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-
+    //聊天界面下拉刷新的layout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
     implementation project(path: ':framework')
 }

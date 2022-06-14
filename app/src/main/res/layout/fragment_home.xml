@@ -57,7 +57,7 @@
         android:text="正在连接服务器...."
         android:textColor="@android:color/white" />
 
-    <com.moxun.tagcloudlib.view.TagCloudView
+    <com.tangyibo.framework.tag.TagCloudView
         android:id="@+id/mCloudView"
         android:layout_width="match_parent"
         android:layout_height="0dp"

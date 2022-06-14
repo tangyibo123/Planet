@@ -10,13 +10,13 @@ import android.widget.TextView;
 
 import com.tangyibo.framework.R;
 
-import com.moxun.tagcloudlib.view.TagsAdapter;
 import com.tangyibo.framework.helper.GlideHelper;
+import com.tangyibo.framework.tag.TagAdapter;
 import com.tangyibo.planet.model.PlanetModel;
 
 import java.util.List;
 
-public class CloudTagAdapter extends TagsAdapter {
+public class CloudTagAdapter extends TagAdapter {
 
     private Context mContext;
     private List<PlanetModel> mList;
@@ -28,11 +28,14 @@ public class CloudTagAdapter extends TagsAdapter {
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     }
+
+    //返回Tag数量
     @Override
     public int getCount() {
         return mList.size();
     }
 
+    //返回每个Tag实例
     @Override
     public View getView(Context context, int position, ViewGroup parent) {
         PlanetModel model = mList.get(position);
@@ -58,16 +61,19 @@ public class CloudTagAdapter extends TagsAdapter {
         return mView;
     }
 
+    //返回Tag数据
     @Override
     public Object getItem(int position) {
         return mList.get(position);
     }
 
+    //针对每个Tag返回一个权重值，该值与ThemeColor和Tag初始大小有关；一个简单的权重值生成方式是对一个数N取余或使用随机数
     @Override
     public int getPopularity(int position) {
         return 7;
     }
 
+    //Tag主题色发生变化时会回调该方法
     @Override
     public void onThemeColorChanged(View view, int themeColor) {
 

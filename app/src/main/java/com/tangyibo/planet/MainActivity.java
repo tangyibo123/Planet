@@ -5,29 +5,43 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.tangyibo.framework.base.BaseUIActivity;
 import com.tangyibo.framework.bmob.BmobManager;
+import com.tangyibo.framework.entity.Constants;
+import com.tangyibo.framework.helper.UpdateHelper;
+import com.tangyibo.framework.json.TokenBean;
 import com.tangyibo.framework.manager.DialogManager;
-import com.tangyibo.framework.manager.MediaPlayerManager;
+import com.tangyibo.framework.manager.HttpManager;
 import com.tangyibo.framework.utils.LogUtils;
 import com.tangyibo.framework.utils.SpUtils;
+import com.tangyibo.framework.view.DialogView;
 import com.tangyibo.planet.fragment.ChatFragment;
 import com.tangyibo.planet.fragment.HomeFragment;
 import com.tangyibo.planet.fragment.MeFragment;
 import com.tangyibo.planet.fragment.SquareFragment;
+import com.tangyibo.planet.service.CloudService;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+import java.util.HashMap;
+import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
+public class MainActivity extends BaseUIActivity implements View.OnClickListener{
 
     //星球
     private ImageView iv_home;
@@ -57,6 +71,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MeFragment mMeFragment = null;
     private FragmentTransaction mMeTransaction = null;
 
+    private Disposable disposable;
+    private DialogView mUploadView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 初始化所有View
      */
     private void initView() {
+
+        requestPermiss();
 
         iv_home = (ImageView) findViewById(R.id.iv_home);
         tv_home = (TextView) findViewById(R.id.tv_home);
@@ -96,11 +115,117 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //切换默认的选项卡
         checkMainTab(0);
 
+        //检查登陆的token
+        //checkToken();
+
     }
 
     /**
-     * 初始化Fragment
+     * 检查Token Bmob
      */
+    private void checkToken() {
+        LogUtils.i("Check Token ...");
+        if (mUploadView != null) {
+            DialogManager.getmInstance().hide(mUploadView);
+        }
+        //获取token 需要三个参数：1. 用户id， 2. 头像地址 3. 昵称
+        String token = SpUtils.getInstance().getString(Constants.SP_TOKEN, "");
+        if (!TextUtils.isEmpty(token)) {
+            startCloudService();
+        }
+        else {
+            //1.有三个参数
+            String tokenPhoto = BmobManager.getInstance().getUser().getTokenPhoto();
+            String tokenName = BmobManager.getInstance().getUser().getTokenNickName();
+            if (!TextUtils.isEmpty(tokenPhoto) && !TextUtils.isEmpty(tokenName)) {
+                //创建Token
+                createToken();
+            } else {
+                //创建上传提示框
+                createUploadDialog();
+            }
+        }
+
+
+    }
+
+    private void createUploadDialog() {
+    }
+
+    // 创建用户token
+    private void createToken() {
+        LogUtils.i("createToken");
+        /**
+         * 1.根据用户id去融云服务端接口获取Token
+         * 2.连接融云
+         */
+        final HashMap<String, String> map = new HashMap<>();
+        map.put("userId", BmobManager.getInstance().getUser().getObjectId());
+        map.put("name", BmobManager.getInstance().getUser().getTokenNickName());
+        map.put("portraitUri", BmobManager.getInstance().getUser().getTokenPhoto());
+
+        //通过OkHttp请求Token
+        disposable = Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                //执行请求过程
+                String json = HttpManager.getInstance().postCloudToken(map);
+                LogUtils.i("json:" + json);
+                emitter.onNext(json);
+                emitter.onComplete();
+            }
+            //线程调度
+        }).subscribeOn(Schedulers.newThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        parsingCloudToken(s);
+                    }
+                });
+    }
+
+    // 解析Token
+    private void parsingCloudToken(String s) {
+        try {
+            LogUtils.i("parsingCloudToken:" + s);
+            TokenBean tokenBean = new Gson().fromJson(s, TokenBean.class);
+            if (tokenBean.getCode() == 200) {
+                if (!TextUtils.isEmpty(tokenBean.getToken())) {
+                    //保存Token
+                    SpUtils.getInstance().putString(Constants.SP_TOKEN, tokenBean.getToken());
+                    startCloudService();
+                }
+            } else if (tokenBean.getCode() == 2007) {
+                Toast.makeText(this, "注册人数已达上限，请替换成自己的Key", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            LogUtils.i("parsingCloudToken:" + e.toString());
+        }
+    }
+
+    private void startCloudService() {
+        LogUtils.i("startCloudService");
+        startService(new Intent(this, CloudService.class));
+        //检查更新
+        //new UpdateHelper(this).updateApp(null);
+    }
+
+    // 请求权限
+    private void requestPermiss() {
+        // 申请危险权限, 传入接口的实现类的对象（匿名内部类实现接口，new一个匿名内部类的对象）
+        requestDyPermissions(new PermissionsResult() {
+            @Override
+            public void OnSuccess() {
+            }
+            @Override
+            public void OnFail(List<String> noPermissions) {
+                LogUtils.i("noPermissions:" + noPermissions.toString());
+            }
+        });
+    }
+
+    //初始化Fragment
     private void initFragment() {
 
         //星球
@@ -136,11 +261,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    /**
-     * 显示Fragment
-     *
-     * @param fragment
-     */
+    //显示Fragment
     private void showFragment(Fragment fragment) {
         if (fragment != null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -150,11 +271,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    /**
-     * 隐藏所有的Fragment
-     *
-     * @param transaction
-     */
+    // 隐藏所有的Fragment
     private void hideAllFragment(FragmentTransaction transaction) {
         if (mHomeFragment != null) {
             transaction.hide(mHomeFragment);
@@ -250,7 +367,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
 
     @Override
     public void onClick(View v) {

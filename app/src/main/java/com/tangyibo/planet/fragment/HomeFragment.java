@@ -14,10 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.moxun.tagcloudlib.view.TagCloudView;
 import com.tangyibo.framework.base.BaseFragment;
 import com.tangyibo.framework.bmob.PlanetUser;
 import com.tangyibo.framework.manager.DialogManager;
+import com.tangyibo.framework.tag.TagCloudView;
 import com.tangyibo.framework.view.DialogView;
 import com.tangyibo.planet.R;
 

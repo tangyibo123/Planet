@@ -21,6 +21,7 @@ import com.tangyibo.framework.base.BaseActivity;
 import com.tangyibo.framework.bmob.BmobManager;
 import com.tangyibo.framework.bmob.PlanetUser;
 import com.tangyibo.framework.entity.Constants;
+import com.tangyibo.framework.utils.LogUtils;
 import com.tangyibo.framework.utils.SpUtils;
 import com.tangyibo.framework.view.LoadingView;
 import com.tangyibo.planet.MainActivity;
@@ -28,6 +29,7 @@ import com.tangyibo.planet.R;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
+import cn.bmob.v3.listener.QueryListener;
 
 /**
  * 登录页
@@ -62,7 +64,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     }
                     else {
                         bu_send.setEnabled(true);
-                        bu_login.setText("发送");
+                        bu_send.setText("发送");
                     }
                     break;
             }
@@ -142,10 +144,21 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             Toast.makeText(this, "手机号码不能为空！", Toast.LENGTH_SHORT).show();
             return; //如果为空，弹出提示后退出login函数，这样再次点击还会再进入login函数
         }
+
         //2.请求短信验证码
-        bu_send.setEnabled(false);
-        mHandler.sendEmptyMessage(H_TIME);
-        Toast.makeText(this, "发送成功", Toast.LENGTH_SHORT).show();
+        BmobManager.getInstance().requestSMS(phone_number, new QueryListener<Integer>() {
+            @Override
+            public void done(Integer integer, BmobException e) {
+                if (e == null) {
+                    bu_send.setEnabled(false);
+                    mHandler.sendEmptyMessage(H_TIME);
+                    Toast.makeText(LoginActivity.this,"发送成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    LogUtils.e("SMS:" + e.toString());
+                    Toast.makeText(LoginActivity.this,"请求失败", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     /**
@@ -167,7 +180,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         //显示loading view
         if ((!TextUtils.isEmpty(phone_number)) && (!TextUtils.isEmpty(ver_code))) {
             dv_loading.show("Loading...");
-            BmobManager.getmInstance().signOrLoginByPhone(phone_number, ver_code, new LogInListener<PlanetUser>(){
+            BmobManager.getInstance().signOrLoginByPhone(phone_number, ver_code, new LogInListener<PlanetUser>(){
                 @Override
                 public void done(PlanetUser planetUser, BmobException e) {
                     dv_loading.hide();
