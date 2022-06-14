@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TagCloudView">
+        <!--自动滚动-->
+        <attr name="autoScrollMode">
+            <enum name="disable" value="0"/>
+            <enum name="decelerate" value="1"/>
+            <enum name="uniform" value="2"/>
+        </attr>
+
+        <!--半径百分比-->
+        <attr name="radiusPercent" format="float"/>
+
+        <!--滚动速度-->
+        <attr name="scrollSpeed" format="float"/>
+
+        <!--起始颜色-->
+        <attr name="lightColor" format="color"/>
+
+        <!--终止颜色-->
+        <attr name="darkColor" format="color"/>
+    </declare-styleable>
+
+</resources>
