@@ -19,10 +19,11 @@ import java.util.List;
 public class CloudTagAdapter extends TagAdapter {
 
     private Context mContext;
-    private List<PlanetModel> mList;
+    //private List<PlanetModel> mList;
+    private List<String> mList;
     private LayoutInflater inflater;
 
-    public CloudTagAdapter(Context mContext, List<PlanetModel> mList) {
+    public CloudTagAdapter(Context mContext, List<String> mList) {
         this.mContext = mContext;
         this.mList = mList;
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -38,26 +39,33 @@ public class CloudTagAdapter extends TagAdapter {
     //返回每个Tag实例
     @Override
     public View getView(Context context, int position, ViewGroup parent) {
-        PlanetModel model = mList.get(position);
+        //PlanetModel model = mList.get(position);
         View mView = null;
         ViewHolder viewHolder = null;
         if (mView == null) {
             viewHolder = new ViewHolder();
             //初始化View
             mView = inflater.inflate(R.layout.layout_star_view_item, null);
-            //初始化控件
-            viewHolder.iv_star_icon = mView.findViewById(R.id.iv_star_icon);
-            viewHolder.tv_star_name = mView.findViewById(R.id.tv_star_name);
-            mView.setTag(viewHolder);
-        }else{
-            viewHolder = (ViewHolder) mView.getTag();
+            }
+        //初始化控件
+        viewHolder.iv_star_icon = mView.findViewById(R.id.iv_star_icon);
+        viewHolder.tv_star_name = mView.findViewById(R.id.tv_star_name);
+        mView.setTag(viewHolder);
+        viewHolder.iv_star_icon.setImageResource(R.drawable.img_star_icon);
+        viewHolder.tv_star_name.setText((CharSequence) mList.get(position));
+        switch (position % 5) {
+            case 0:
+                viewHolder.iv_star_icon.setAlpha(0.1F);
+            case 1:
+                viewHolder.iv_star_icon.setAlpha(0.3F);
+            case 2:
+                viewHolder.iv_star_icon.setAlpha(0.5F);
+            case 3:
+                viewHolder.iv_star_icon.setAlpha(0.7F);
+            case 4:
+                viewHolder.iv_star_icon.setAlpha(0.9F);
         }
-        if (!TextUtils.isEmpty(model.getPhotoUrl())) {
-            GlideHelper.loadSmollUrl(mContext, model.getPhotoUrl(), 30, 30, viewHolder.iv_star_icon);
-        } else {
-            viewHolder.iv_star_icon.setImageResource(R.drawable.img_star_icon);
-        }
-        viewHolder.tv_star_name.setText(model.getNickName());
+
         return mView;
     }
 
@@ -70,7 +78,7 @@ public class CloudTagAdapter extends TagAdapter {
     //针对每个Tag返回一个权重值，该值与ThemeColor和Tag初始大小有关；一个简单的权重值生成方式是对一个数N取余或使用随机数
     @Override
     public int getPopularity(int position) {
-        return 7;
+        return position % 7;
     }
 
     //Tag主题色发生变化时会回调该方法

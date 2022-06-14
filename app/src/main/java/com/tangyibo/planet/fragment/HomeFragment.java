@@ -46,7 +46,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private LinearLayout ll_love;
 
     private CloudTagAdapter mCloudTagAdapter;
-    private List<PlanetModel> mStarList = new ArrayList<>();
+    //private List<PlanetModel> mStarList = new ArrayList<>();
+    private List<String> mStarList = new ArrayList<>();
 
     private LoadingView mLoadingView;
 
@@ -108,6 +109,23 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         ll_soul.setOnClickListener(this);
         ll_fate.setOnClickListener(this);
         ll_love.setOnClickListener(this);
+
+        // 模拟数据
+        for (int i=0; i<100; i++) {
+            mStarList.add("Planet User" + i);
+        }
+
+        //数据绑定
+        mCloudTagAdapter = new CloudTagAdapter(getActivity(), mStarList);
+        mCloudView.setAdapter(mCloudTagAdapter);
+
+        //监听点击事件
+        mCloudView.setOnTagClickListener(new TagCloudView.OnTagClickListener() {
+            @Override
+            public void onItemClick(ViewGroup parent, View view, int position) {
+                //startUserInfo(mStarList.get(position).getUserId());
+            }
+        });
 
     }
 
