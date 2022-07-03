@@ -2,7 +2,7 @@ package com.tangyibo.planet.base;
 
 import android.app.Application;
 
-import com.tangyibo.framework.Framework;
+import com.tangyibo.framework.FrameWork;
 
 public class BaseApp extends Application {
 
@@ -17,7 +17,7 @@ public class BaseApp extends Application {
          * 3.非必要的组件，子线程中初始化
          */
 
-        Framework.getFramework().initFramework(this);
+        FrameWork.getFramework().initFramework(this);
 
     }
 }

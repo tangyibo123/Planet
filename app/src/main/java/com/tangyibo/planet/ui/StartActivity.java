@@ -4,15 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.SyncStateContract;
 import android.text.TextUtils;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.tangyibo.framework.entity.Constants;
+import com.tangyibo.framework.bmob.BmobManager;
+import com.tangyibo.framework.data.Constants;
 import com.tangyibo.framework.utils.SpUtils;
 import com.tangyibo.planet.MainActivity;
 import com.tangyibo.planet.R;
@@ -69,12 +68,18 @@ public class StartActivity extends AppCompatActivity {
             //2. 如果之前已经启动过了，判断是否曾经登录过
             String token = SpUtils.getInstance().getString(Constants.SP_TOKEN, "");
             if(TextUtils.isEmpty(token)) {
-                //跳转到登录页
-                intent.setClass(this, LoginActivity.class);
+                //3.判断Bmob现在是否登录
+                if (BmobManager.getInstance().isLogin()) {
+                    //跳转到主页
+                    intent.setClass(this, MainActivity.class);
+                } else {
+                    //跳转到登录页
+                    intent.setClass(this, LoginActivity.class);
+                }
             }
             else{
-                //跳转到主页
-                intent.setClass(this, MainActivity.class);
+                    //跳转到主页
+                    intent.setClass(this, MainActivity.class);
             }
         }
 

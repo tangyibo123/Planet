@@ -1,6 +1,5 @@
 package com.tangyibo.planet;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -14,10 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.tangyibo.framework.base.BaseUIActivity;
+import com.tangyibo.framework.base.BaseActivity;
 import com.tangyibo.framework.bmob.BmobManager;
-import com.tangyibo.framework.entity.Constants;
-import com.tangyibo.framework.helper.UpdateHelper;
+import com.tangyibo.framework.data.Constants;
 import com.tangyibo.framework.json.TokenBean;
 import com.tangyibo.framework.manager.DialogManager;
 import com.tangyibo.framework.manager.HttpManager;
@@ -29,6 +27,7 @@ import com.tangyibo.planet.fragment.HomeFragment;
 import com.tangyibo.planet.fragment.MeFragment;
 import com.tangyibo.planet.fragment.SquareFragment;
 import com.tangyibo.planet.service.CloudService;
+import com.tangyibo.planet.ui.FirstUploadActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +40,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainActivity extends BaseUIActivity implements View.OnClickListener{
+public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     //星球
     private ImageView iv_home;
@@ -116,8 +115,10 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
         checkMainTab(0);
 
         //检查登陆的token
-        //checkToken();
+        checkToken();
 
+        //模拟数据
+        //SimulationData.testData();
     }
 
     /**
@@ -126,18 +127,19 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
     private void checkToken() {
         LogUtils.i("Check Token ...");
         if (mUploadView != null) {
-            DialogManager.getmInstance().hide(mUploadView);
+            DialogManager.getInstance().hide(mUploadView);
         }
         //获取token 需要三个参数：1. 用户id， 2. 头像地址 3. 昵称
         String token = SpUtils.getInstance().getString(Constants.SP_TOKEN, "");
         if (!TextUtils.isEmpty(token)) {
+            // 启动云服务去连接融云
             startCloudService();
         }
         else {
             //1.有三个参数
             String tokenPhoto = BmobManager.getInstance().getUser().getTokenPhoto();
             String tokenName = BmobManager.getInstance().getUser().getTokenNickName();
-            if (!TextUtils.isEmpty(tokenPhoto) && !TextUtils.isEmpty(tokenName)) {
+            if (!TextUtils.isEmpty(tokenName)) {
                 //创建Token
                 createToken();
             } else {
@@ -145,11 +147,20 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
                 createUploadDialog();
             }
         }
-
-
     }
 
     private void createUploadDialog() {
+        mUploadView = DialogManager.getInstance().initView(this, R.layout.dialog_first_upload);
+        //外部点击不能消失
+        mUploadView.setCancelable(false);
+        ImageView iv_go_upload = mUploadView.findViewById(R.id.iv_go_upload);
+        iv_go_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirstUploadActivity.startActivity(MainActivity.this);
+            }
+        });
+        DialogManager.getInstance().show(mUploadView);
     }
 
     // 创建用户token
@@ -162,7 +173,7 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
         final HashMap<String, String> map = new HashMap<>();
         map.put("userId", BmobManager.getInstance().getUser().getObjectId());
         map.put("name", BmobManager.getInstance().getUser().getTokenNickName());
-        map.put("portraitUri", BmobManager.getInstance().getUser().getTokenPhoto());
+        //map.put("portraitUri", BmobManager.getInstance().getUser().getTokenPhoto());
 
         //通过OkHttp请求Token
         disposable = Observable.create(new ObservableOnSubscribe<String>() {
@@ -323,47 +334,48 @@ public class MainActivity extends BaseUIActivity implements View.OnClickListener
         switch (index) {
             case 0:
                 showFragment(mHomeFragment);
-                iv_home.setAlpha((float) 0.9);
-                tv_home.setAlpha((float) 0.9);
-                iv_square.setAlpha((float) 0.5);
-                tv_square.setAlpha((float) 0.5);
-                iv_chat.setAlpha((float) 0.5);
-                tv_chat.setAlpha((float) 0.5);
-                iv_me.setAlpha((float) 0.5);
-                tv_me.setAlpha((float) 0.5);
+                iv_home.setAlpha((float) 0.87);
+                tv_home.setAlpha((float) 0.87);
+                iv_square.setAlpha((float) 0.6);
+                tv_square.setAlpha((float) 0.6);
+                iv_chat.setAlpha((float) 0.6);
+                tv_chat.setAlpha((float) 0.6);
+                iv_me.setAlpha((float) 0.6);
+                tv_me.setAlpha((float) 0.6);
                 break;
             case 1:
                 showFragment(mSquareFragment);
-                iv_home.setAlpha((float) 0.5);
-                tv_home.setAlpha((float) 0.5);
-                iv_square.setAlpha((float) 0.9);
-                tv_square.setAlpha((float) 0.9);
-                iv_chat.setAlpha((float) 0.5);
-                tv_chat.setAlpha((float) 0.5);
-                iv_me.setAlpha((float) 0.5);
-                tv_me.setAlpha((float) 0.5);
+                iv_home.setAlpha((float) 0.6);
+                tv_home.setAlpha((float) 0.6);
+                iv_square.setAlpha((float) 0.87);
+                tv_square.setAlpha((float) 0.87);
+                iv_chat.setAlpha((float) 0.6);
+                tv_chat.setAlpha((float) 0.6);
+                iv_me.setAlpha((float) 0.6);
+                tv_me.setAlpha((float) 0.6);
                 break;
             case 2:
                 showFragment(mChatFragment);
-                iv_home.setAlpha((float) 0.5);
-                tv_home.setAlpha((float) 0.5);
-                iv_square.setAlpha((float) 0.5);
-                tv_square.setAlpha((float) 0.5);
-                iv_chat.setAlpha((float) 0.9);
-                tv_chat.setAlpha((float) 0.9);
-                iv_me.setAlpha((float) 0.5);
-                tv_me.setAlpha((float) 0.5);
+                iv_home.setAlpha((float) 0.6);
+                tv_home.setAlpha((float) 0.6);
+                iv_square.setAlpha((float) 0.6);
+                tv_square.setAlpha((float) 0.6);
+                iv_chat.setAlpha((float) 0.87);
+                tv_chat.setAlpha((float) 0.87);
+                iv_me.setAlpha((float) 0.6);
+                tv_me.setAlpha((float) 0.6);
                 break;
             case 3:
                 showFragment(mMeFragment);
-                iv_home.setAlpha((float) 0.5);
-                tv_home.setAlpha((float) 0.5);
-                iv_square.setAlpha((float) 0.5);
-                tv_square.setAlpha((float) 0.5);
-                iv_chat.setAlpha((float) 0.5);
-                tv_chat.setAlpha((float) 0.5);
-                iv_me.setAlpha((float) 0.9);
-                tv_me.setAlpha((float) 0.9);
+                iv_home.setAlpha((float) 0.6);
+                tv_home.setAlpha((float) 0.6);
+                iv_square.setAlpha((float) 0.6);
+                tv_square.setAlpha((float) 0.6);
+                iv_chat.setAlpha((float) 0.6);
+                tv_chat.setAlpha((float) 0.6);
+                iv_me.setAlpha((float) 0.87);
+                tv_me.setAlpha((float) 0.87);
+                //BmobManager.getInstance().updateAccount("13284525087", "123456");
                 break;
         }
     }

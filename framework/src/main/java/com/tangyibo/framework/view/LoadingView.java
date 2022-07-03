@@ -19,7 +19,7 @@ public class LoadingView {
     private ObjectAnimator mAnim;
 
     public LoadingView(Context mContext){
-        mLoadingView = DialogManager.getmInstance().initView(mContext, R.layout.dialog_loading);
+        mLoadingView = DialogManager.getInstance().initView(mContext, R.layout.dialog_loading);
         iv_loading = mLoadingView.findViewById(R.id.iv_loading);
         tv_loading_text = mLoadingView.findViewById(R.id.tv_loading_text);
         mAnim = AnimUtils.rotation(iv_loading);
@@ -41,18 +41,18 @@ public class LoadingView {
 
     public void show() {
         mAnim.start();
-        DialogManager.getmInstance().show(mLoadingView);
+        DialogManager.getInstance().show(mLoadingView);
     }
 
     public void show(String text) {
         mAnim.start();
         setLoadingText(text);
-        DialogManager.getmInstance().show(mLoadingView);
+        DialogManager.getInstance().show(mLoadingView);
     }
 
     public void hide() {
         mAnim.pause();
-        DialogManager.getmInstance().hide(mLoadingView);
+        DialogManager.getInstance().hide(mLoadingView);
     }
 
     /**

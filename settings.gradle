@@ -5,6 +5,7 @@ dependencyResolutionManagement {
         mavenCentral()
         //融云 maven 仓库地址
         maven {url "https://maven.rongcloud.cn/repository/maven-releases/"}
+        maven { url "https://www.jitpack.io" }
         jcenter() // Warning: this repository is going to shut down soon
     }
 }

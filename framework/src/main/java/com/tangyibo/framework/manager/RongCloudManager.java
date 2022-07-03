@@ -33,6 +33,25 @@ public class RongCloudManager {
     public static final String RongCloud_KEY = "x18ywvqfxysrc";
     public static final String RongCloud_SECRET = "ygyTJBrI286O";
 
+    //ObjectName
+    public static final String MSG_TEXT_NAME = "RC:TxtMsg";
+    public static final String MSG_IMAGE_NAME = "RC:ImgMsg";
+    public static final String MSG_LOCATION_NAME = "RC:LBSMsg";
+
+    //Msg Type
+
+    //普通消息
+    public static final String TYPE_TEXT = "TYPE_TEXT";
+    //添加好友消息
+    public static final String TYPE_ADD_FRIEND = "TYPE_ADD_FRIEND";
+    //同意添加好友的消息
+    public static final String TYPE_ARGEED_FRIEND = "TYPE_ARGEED_FRIEND";
+
+    //来电铃声
+    public static final String callAudioPath = "http://downsc.chinaz.net/Files/DownLoad/sound1/201501/5363.wav";
+    //挂断铃声
+    public static final String callAudioHangup = "http://downsc.chinaz.net/Files/DownLoad/sound1/201501/5351.wav";
+
     private static volatile RongCloudManager mInstnce = null;
 
     public static RongCloudManager getInstance() {

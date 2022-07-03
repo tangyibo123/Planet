@@ -20,7 +20,7 @@ import androidx.core.content.ContextCompat;
 import com.tangyibo.framework.base.BaseActivity;
 import com.tangyibo.framework.bmob.BmobManager;
 import com.tangyibo.framework.bmob.PlanetUser;
-import com.tangyibo.framework.entity.Constants;
+import com.tangyibo.framework.data.Constants;
 import com.tangyibo.framework.utils.LogUtils;
 import com.tangyibo.framework.utils.SpUtils;
 import com.tangyibo.framework.view.LoadingView;
@@ -72,6 +72,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     });
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        initView();
+    }
+
     //初始化控件
     @SuppressLint("ResourceAsColor")
     private void initView(){
@@ -81,7 +88,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         bu_send = findViewById(R.id.bu_send);
         bu_send.setOnClickListener(this);
         bu_login = findViewById(R.id.bu_login);
-        //bu_login.setBackground(ContextCompat.getDrawable(this, R.drawable.corner_unuse));
+        bu_login.setBackground(ContextCompat.getDrawable(this, R.drawable.corner_unuse));
         SpUtils.getInstance().putBoolean(Constants.SP_AGREEMENT, false);
         bu_login.setOnClickListener(this);
         iv_circle = findViewById(R.id.iv_circle);
@@ -89,13 +96,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         tv_test = findViewById(R.id.tv_test);
         tv_test.setOnClickListener(this);
         dv_loading = new LoadingView(this);
-    }
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        initView();
+        // 如果曾经登录过，自动填入手机号码
+        String phone = SpUtils.getInstance().getString(Constants.SP_PHONE, "");
+        if (!TextUtils.isEmpty(phone)) {
+            et_number.setText(phone);
+        }
     }
 
     @Override
@@ -127,7 +133,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 break;
             case R.id.tv_test:
                 //测试免注册登录
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, TestLoginActivity.class);
                 startActivity(intent);
 
         }

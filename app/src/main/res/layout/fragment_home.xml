@@ -8,10 +8,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="40dp"
+        android:layout_height="60dp"
         android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        android:paddingRight="15dp"
+        android:background="@color/purple_200">
 
         <TextView
             android:id="@+id/tv_star_title"
@@ -20,6 +20,7 @@
             android:layout_centerInParent="true"
             android:text="@string/app_name"
             android:textColor="@color/white"
+            android:alpha="0.87"
             android:textSize="22sp" />
 
         <LinearLayout
@@ -35,12 +36,14 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginRight="15dp"
-                android:src="@drawable/camera" />
+                android:alpha="0.87"
+                android:src="@drawable/scan" />
 
             <ImageView
                 android:id="@+id/iv_add"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
+                android:alpha="0.87"
                 android:src="@drawable/add" />
 
         </LinearLayout>
@@ -51,13 +54,14 @@
         android:id="@+id/tv_connect_status"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:background="@color/grey1"
+        android:background="#0DFFFFFF"
         android:gravity="center"
         android:paddingLeft="10dp"
         android:text="正在连接服务器...."
+        android:alpha="0.6"
         android:textColor="@android:color/white" />
 
-    <com.tangyibo.framework.tag.TagCloudView
+    <com.tangyibo.framework.view.tagview.TagCloudView
         android:id="@+id/mCloudView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -84,6 +88,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:alpha="0.6"
                 android:src="@drawable/random" />
 
             <TextView
@@ -91,6 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="随机"
+                android:alpha="0.6"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -110,6 +116,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:alpha="0.6"
                 android:src="@drawable/soul" />
 
             <TextView
@@ -118,6 +125,7 @@
                 android:layout_height="wrap_content"
                 android:text="灵魂"
                 android:textColor="@android:color/white"
+                android:alpha="0.6"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -136,6 +144,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:alpha="0.6"
                 android:src="@drawable/fate" />
 
             <TextView
@@ -144,6 +153,7 @@
                 android:layout_height="wrap_content"
                 android:text="缘分"
                 android:textColor="@android:color/white"
+                android:alpha="0.6"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -162,6 +172,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:alpha="0.6"
                 android:src="@drawable/love" />
 
             <TextView
@@ -170,6 +181,7 @@
                 android:layout_height="wrap_content"
                 android:text="心动"
                 android:textColor="@android:color/white"
+                android:alpha="0.6"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

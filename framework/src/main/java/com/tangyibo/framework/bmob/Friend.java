@@ -1,7 +1,7 @@
 package com.tangyibo.framework.bmob;
 import cn.bmob.v3.BmobObject;
 
-public class Friend {
+public class Friend extends BmobObject {
 
     //我自己
     private PlanetUser user;

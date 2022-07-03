@@ -38,6 +38,7 @@ public class PlanetUser extends BmobUser {
     //单身状态
     private String status;
 
+
     public String getTokenPhoto() {
         return tokenPhoto;
     }

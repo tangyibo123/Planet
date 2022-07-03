@@ -1,6 +1,11 @@
 package com.tangyibo.framework.bmob;
 
 import android.content.Context;
+import android.content.Intent;
+import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
+import com.tangyibo.framework.utils.CommonUtils;
 
 import java.io.File;
 import java.util.List;
@@ -27,7 +32,7 @@ import cn.bmob.v3.listener.UploadFileListener;
  */
 public class BmobManager {
 
-    private static final String BmobKey = "1e423b0f4131d8209fb43cb93b1394d2";
+    private static final String Bmob_ID = "1e423b0f4131d8209fb43cb93b1394d2";
 
     private volatile static BmobManager mInstance = null;
 
@@ -48,25 +53,15 @@ public class BmobManager {
      * @param mContext
      */
     public void initBmob(Context mContext) {
-        //如果Bmob绑定独立域名，则需要在初始化之前重置
-        //Bmob.resetDomain(BMOB_NEW_DOMAIN);
-        Bmob.initialize(mContext, BmobKey);
+        Bmob.initialize(mContext, Bmob_ID);
     }
 
-    /**
-     * 是否登录
-     *
-     * @return
-     */
+    // 是否登录
     public boolean isLogin() {
         return BmobUser.isLogin();
     }
 
-    /**
-     * 获取本地对象
-     *
-     * @return
-     */
+    // 获取当前本地的planet user
     public PlanetUser getUser() {
         return BmobUser.getCurrentUser(PlanetUser.class);
     }
@@ -113,121 +108,127 @@ public class BmobManager {
         imUser.login(listener);
     }
 
-
     /**
-     * 上传头像
+     * 账号密码注册
      *
-     * @param nickName
-     * @param file
+     * @param userName
+     * @param pw
      * @param listener
      */
-    public void uploadFirstPhoto(final String nickName, File file, final OnUploadPhotoListener listener) {
+    public void signByAccount(String userName, String pw, SaveListener<PlanetUser> listener) {
+        PlanetUser imUser = new PlanetUser();
+        imUser.setUsername(userName);
+        imUser.setPassword(pw);
+        imUser.signUp(listener);
+    }
+
+    /**
+     * 账号密码注册
+     *
+     * @param userName
+     * @param pw
+     */
+    public void updateAccount(String userName, String pw) {
+        final PlanetUser imUser = getUser();
+        imUser.setPassword(pw);
+        //更新用户信息
+        imUser.update(new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+            }
+        });
+    }
+
+
+    /**
+     * 更新昵称
+     *
+     * @param nickName
+     */
+    public void uploadNickName(Context mContext, final String nickName) {
         /**
          * 1.上传文件拿到地址
          * 2.更新用户信息
          */
         final PlanetUser imUser = getUser();
-        //独立域名 设置 - 应用配置 - 独立域名 一年/100
-        //免费的办法： 使用我的Key
-        //你如果怕数据冲突
-        //解决办法：和我的类名不一样即可
-        final BmobFile bmobFile = new BmobFile(file);
-        bmobFile.uploadblock(new UploadFileListener() {
+        //上传成功
+        imUser.setNickName(nickName);
+        imUser.setTokenNickName(nickName);
+
+        //更新用户信息
+        imUser.update(new UpdateListener() {
             @Override
             public void done(BmobException e) {
                 if (e == null) {
-                    //上传成功
-                    imUser.setNickName(nickName);
-                    imUser.setPhoto(bmobFile.getFileUrl());
-
-                    imUser.setTokenNickName(nickName);
-                    imUser.setTokenPhoto(bmobFile.getFileUrl());
-
-                    //更新用户信息
-                    imUser.update(new UpdateListener() {
-                        @Override
-                        public void done(BmobException e) {
-                            if (e == null) {
-                                listener.OnUpdateDone();
-                            } else {
-                                listener.OnUpdateFail(e);
-                            }
-                        }
-                    });
+                    Toast.makeText(mContext, "更新成功！", Toast.LENGTH_SHORT).show();
                 } else {
-                    listener.OnUpdateFail(e);
+                    Toast.makeText(mContext, "更新失败！请返回联系管理员", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    public interface OnUploadPhotoListener {
 
-        void OnUpdateDone();
-
-        void OnUpdateFail(BmobException e);
+    /**
+     * 根据电话号码查询用户
+     *
+     * @param phone
+     */
+    public void queryPhoneUser(String phone, FindListener<PlanetUser> listener) {
+        baseQuery("mobilePhoneNumber", phone, listener);
     }
 
-//    /**
-//     * 根据电话号码查询用户
-//     *
-//     * @param phone
-//     */
-//    public void queryPhoneUser(String phone, FindListener<PlanetUser> listener) {
-//        baseQuery("mobilePhoneNumber", phone, listener);
-//    }
-//
-//    /**
-//     * 根据objectId查询用户
-//     *
-//     * @param objectId
-//     * @param listener
-//     */
-//    public void queryObjectIdUser(String objectId, FindListener<PlanetUser> listener) {
-//        baseQuery("objectId", objectId, listener);
-//    }
-//
-//    /**
-//     * 查询我的好友
-//     *
-//     * @param listener
-//     */
-//    public void queryMyFriends(FindListener<Friend> listener) {
-//        BmobQuery<Friend> query = new BmobQuery<>();
-//        query.addWhereEqualTo("user", getUser());
-//        query.findObjects(listener);
-//    }
-//
-//    /**
-//     * 查询所有的用户
-//     *
-//     * @param listener
-//     */
-//    public void queryAllUser(FindListener<PlanetUser> listener) {
-//        BmobQuery<PlanetUser> query = new BmobQuery<>();
-//        query.findObjects(listener);
-//    }
+    /**
+     * 根据objectId查询用户
+     *
+     * @param objectId
+     * @param listener
+     */
+    public void queryObjectIdUser(String objectId, FindListener<PlanetUser> listener) {
+        baseQuery("objectId", objectId, listener);
+    }
 
-//    /**
-//     * 查询所有的广场的数据
-//     *
-//     * @param listener
-//     */
-//    public void queryAllSquare(FindListener<SquareSet> listener) {
-//        BmobQuery<SquareSet> query = new BmobQuery<>();
-//        query.findObjects(listener);
-//    }
-//
-//    /**
-//     * 查询私有库
-//     *
-//     * @param listener
-//     */
-//    public void queryPrivateSet(FindListener<PrivateSet> listener) {
-//        BmobQuery<PrivateSet> query = new BmobQuery<>();
-//        query.findObjects(listener);
-//    }
-//
+    /**
+     * 查询我的好友
+     *
+     * @param listener
+     */
+    public void queryMyFriends(FindListener<Friend> listener) {
+        BmobQuery<Friend> query = new BmobQuery<>();
+        query.addWhereEqualTo("user", getUser());
+        query.findObjects(listener);
+    }
+
+    /**
+     * 查询所有的用户
+     *
+     * @param listener
+     */
+    public void queryAllUser(FindListener<PlanetUser> listener) {
+        BmobQuery<PlanetUser> query = new BmobQuery<>();
+        query.findObjects(listener);
+    }
+
+    /**
+     * 查询所有的广场的数据
+     *
+     * @param listener
+     */
+    public void queryAllSquare(FindListener<SquareSet> listener) {
+        BmobQuery<SquareSet> query = new BmobQuery<>();
+        query.findObjects(listener);
+    }
+
+    /**
+     * 查询私有库
+     *
+     * @param listener
+     */
+    public void queryPrivateSet(FindListener<PrivateSet> listener) {
+        BmobQuery<PrivateSet> query = new BmobQuery<>();
+        query.findObjects(listener);
+    }
+
 //    /**
 //     * 查询缘分池
 //     *
@@ -238,44 +239,55 @@ public class BmobManager {
 //        query.findObjects(listener);
 //    }
 //
-//    /**
-//     * 查询基类
-//     *
-//     * @param key
-//     * @param values
-//     * @param listener
-//     */
-//    public void baseQuery(String key, String values, FindListener<PlanetUser> listener) {
-//        BmobQuery<PlanetUser> query = new BmobQuery<>();
-//        query.addWhereEqualTo(key, values);
-//        query.findObjects(listener);
-//    }
-//
-//    /**
-//     * 添加好友
-//     *
-//     * @param imUser
-//     * @param listener
-//     */
-//    public void addFriend(PlanetUser imUser, SaveListener<String> listener) {
-//        Friend friend = new Friend();
-//        friend.setUser(getUser());
-//        friend.setFriendUser(imUser);
-//        friend.save(listener);
-//    }
-//
-//    /**
-//     * 添加私有库
-//     *
-//     * @param listener
-//     */
-//    public void addPrivateSet(SaveListener<String> listener) {
-//        PrivateSet set = new PrivateSet();
-//        set.setUserId(getUser().getObjectId());
-//        set.setPhone(getUser().getMobilePhoneNumber());
-//        set.save(listener);
-//    }
-//
+    /**
+     * 查询基类
+     *
+     * @param key
+     * @param values
+     * @param listener
+     */
+    public void baseQuery(String key, String values, FindListener<PlanetUser> listener) {
+        BmobQuery<PlanetUser> query = new BmobQuery<>();
+        query.addWhereEqualTo(key, values);
+        query.findObjects(listener);
+    }
+
+    /**
+     * 添加好友
+     *
+     * @param imUser
+     * @param listener
+     */
+    public void addFriend(PlanetUser imUser, SaveListener<String> listener) {
+        Friend friend = new Friend();
+        friend.setUser(getUser());
+        friend.setFriendUser(imUser);
+        friend.save(listener);
+    }
+
+    /**
+     * 添加私有库
+     *
+     * @param listener
+     */
+    public void addPrivateSet(SaveListener<String> listener) {
+        PrivateSet set = new PrivateSet();
+        set.setUserId(getUser().getObjectId());
+        set.setPhone(getUser().getMobilePhoneNumber());
+        set.save(listener);
+    }
+
+    /**
+     * 删除私有库
+     *
+     * @param id
+     * @param listener
+     */
+    public void delPrivateSet(String id, UpdateListener listener) {
+        PrivateSet set = new PrivateSet();
+        set.setObjectId(id);
+        set.delete(listener);
+    }
 //    /**
 //     * 添加到缘分池中
 //     *
@@ -298,85 +310,73 @@ public class BmobManager {
 //        set.setObjectId(id);
 //        set.delete(listener);
 //    }
-//
-//    /**
-//     * 删除私有库
-//     *
-//     * @param id
-//     * @param listener
-//     */
-//    public void delPrivateSet(String id, UpdateListener listener) {
-//        PrivateSet set = new PrivateSet();
-//        set.setObjectId(id);
-//        set.delete(listener);
-//    }
-//
-//    /**
-//     * 发布广场
-//     *
-//     * @param mediaType 媒体类型
-//     * @param text      文本
-//     * @param path      路径
-//     */
-//    public void pushSquare(int mediaType, String text, String path, SaveListener<String> listener) {
-//        SquareSet squareSet = new SquareSet();
-//        squareSet.setUserId(getUser().getObjectId());
-//        squareSet.setPushTime(System.currentTimeMillis());
-//
-//        squareSet.setText(text);
-//        squareSet.setMediaUrl(path);
-//        squareSet.setPushType(mediaType);
-//        squareSet.save(listener);
-//    }
-//
-//    /**
-//     * 通过ID添加好友
-//     *
-//     * @param id
-//     * @param listener
-//     */
-//    public void addFriend(String id, final SaveListener<String> listener) {
-//        queryObjectIdUser(id, new FindListener<IMUser>() {
-//            @Override
-//            public void done(List<IMUser> list, BmobException e) {
-//                if (e == null) {
-//                    if (CommonUtils.isEmpty(list)) {
-//                        IMUser imUser = list.get(0);
-//                        addFriend(imUser, listener);
-//                    }
-//                }
-//            }
-//        });
-//    }
-//
-//    /**
-//     * 删除好友
-//     *
-//     * @param id
-//     * @param listener
-//     */
-//    public void deleteFriend(final String id, final UpdateListener listener) {
-//        /**
-//         * 从自己的好友列表中删除
-//         * 如果需要，也可以从对方好友中删除
-//         */
-//        queryMyFriends(new FindListener<Friend>() {
-//            @Override
-//            public void done(List<Friend> list, BmobException e) {
-//                if (e == null) {
-//                    if (CommonUtils.isEmpty(list)) {
-//                        for (int i = 0; i < list.size(); i++) {
-//                            if (list.get(i).getFriendUser().getObjectId().equals(id)) {
-//                                Friend friend = new Friend();
-//                                friend.setObjectId(list.get(i).getObjectId());
-//                                friend.delete(listener);
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        });
-//    }
+
+    /**
+     * 发布广场
+     *
+     * @param mediaType 媒体类型
+     * @param text      文本
+     * @param path      路径
+     */
+    public void pushSquare(int mediaType, String text, String path, SaveListener<String> listener) {
+        SquareSet squareSet = new SquareSet();
+        squareSet.setUserId(getUser().getObjectId());
+        squareSet.setPushTime(System.currentTimeMillis());
+
+        squareSet.setText(text);
+        squareSet.setMediaUrl(path);
+        squareSet.setPushType(mediaType);
+        squareSet.save(listener);
+    }
+
+    /**
+     * 通过ID添加好友
+     *
+     * @param id
+     * @param listener
+     */
+    public void addFriend(String id, final SaveListener<String> listener) {
+        queryObjectIdUser(id, new FindListener<PlanetUser>() {
+            @Override
+            public void done(List<PlanetUser> list, BmobException e) {
+                if (e == null) {
+                    if (CommonUtils.isEmpty(list)) {
+                        PlanetUser imUser = list.get(0);
+                        addFriend(imUser, listener);
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * 删除好友
+     *
+     * @param id
+     * @param listener
+     */
+    public void deleteFriend(final String id, final UpdateListener listener) {
+        /**
+         * 从自己的好友列表中删除
+         * 如果需要，也可以从对方好友中删除
+         */
+        queryMyFriends(new FindListener<Friend>() {
+            @Override
+            public void done(List<Friend> list, BmobException e) {
+                if (e == null) {
+                    if (CommonUtils.isEmpty(list)) {
+                        for (int i = 0; i < list.size(); i++) {
+                            if (list.get(i).getFriendUser().getObjectId().equals(id)) {
+                                Friend friend = new Friend();
+                                friend.setObjectId(list.get(i).getObjectId());
+                                friend.delete(listener);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
 //
 //    public void addUpdateSet() {
 //        UpdateSet updateSet = new UpdateSet();
@@ -391,13 +391,9 @@ public class BmobManager {
 //        });
 //    }
 //
-//    /**
-//     * 查询更新
-//     *
-//     * @param listener
-//     */
-//    public void queryUpdateSet(FindListener<UpdateSet> listener) {
-//        BmobQuery<UpdateSet> bmobQuery = new BmobQuery<>();
-//        bmobQuery.findObjects(listener);
-//    }
+    // 查询更新
+    public void queryUpdateSet(FindListener<UpdateSet> listener) {
+        BmobQuery<UpdateSet> bmobQuery = new BmobQuery<>();
+        bmobQuery.findObjects(listener);
+    }
 }

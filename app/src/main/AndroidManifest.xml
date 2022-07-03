@@ -5,16 +5,20 @@
 
 
     <application
-        android:allowBackup="true"
+        android:name=".base.BaseApp"
+        android:allowBackup="false"
         android:icon="@mipmap/planet"
         android:label="@string/app_name"
-        android:supportsRtl="true">
+        android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:allowBackup">
 
         <!--启动页-->
         <activity
             android:name=".ui.StartActivity"
             android:exported="true"
-            android:theme="@style/AppThemeFull">
+            android:theme="@style/GuideThemeFull">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -31,7 +35,7 @@
         <activity
             android:name=".ui.GuideActivity"
             android:launchMode="singleTask"
-            android:theme="@style/AppThemeFull"/>
+            android:theme="@style/GuideThemeFull"/>
 
         <!--登录页-->
         <activity
@@ -39,6 +43,97 @@
             android:launchMode="singleTask"
             android:theme="@style/ThemeLogin"/>
 
+        <!--测试登录页-->
+        <activity
+            android:name=".ui.TestLoginActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/ThemeLogin"/>
+
+        <!--上传头像-->
+        <activity
+            android:name=".ui.FirstUploadActivity"
+            android:label="@string/text_upload_title"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme"/>
+
+        <!--添加好友-->
+        <activity
+            android:name=".ui.AddFriendActivity"
+            android:label="@string/text_user_add_friend"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme"/>
+
+        <!--从通讯录导入-->
+        <activity
+            android:name=".ui.ContactFriendActivity"
+            android:label="@string/text_add_friend_contact"
+            android:launchMode="singleTask" />
+
+        <!--用户信息-->
+        <activity
+            android:name=".ui.UserInfoActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme" />
+
+        <!--发朋友圈-->
+        <activity
+            android:name=".ui.PushSquareActivity"
+            android:label="@string/text_square_psuh"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme" />
+
+        <!--图片预览-->
+        <activity
+            android:name=".ui.ImagePreviewActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <!--个人信息-->
+        <activity
+            android:name=".ui.MeInfoActivity"
+            android:label="@string/text_me_item_title_1"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme"/>
+
+        <!--新朋友-->
+        <activity
+            android:name=".ui.NewFriendActivity"
+            android:label="@string/text_me_item_title_3"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme"/>
+
+        <!--隐私设置-->
+        <activity
+            android:name=".ui.PrivateSetActivity"
+            android:label="@string/text_me_item_title_4"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme"/>
+
+        <!--分享-->
+        <activity
+            android:name=".ui.ShareImgActivity"
+            android:label="@string/text_me_item_title_5"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme"/>
+
+
+        <!--二维码-->
+        <activity
+            android:name=".ui.QrCodeActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/GuideThemeFull"
+            tools:ignore="Instantiatable" />
+
+        <!--FileProvide-->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.tangyibo.planet.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
 
         <!--Bmob-->
         <provider

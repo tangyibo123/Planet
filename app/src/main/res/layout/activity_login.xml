@@ -39,7 +39,7 @@
             android:layout_marginLeft="20dp"
             android:background="@drawable/corner_login"
             android:text="@string/login_send"
-            android:textColor="@color/white_ff"
+            android:textColor="@color/white"
             android:textSize="20sp" />
     </LinearLayout>
 
@@ -49,7 +49,7 @@
         android:layout_height="40dp"
         android:text="一键注册 / 登录"
         android:gravity="center"
-        android:textColor="@color/white_ff"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:background="@drawable/corner_login"
         android:layout_margin="10dp"/>

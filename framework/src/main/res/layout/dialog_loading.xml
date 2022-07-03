@@ -3,7 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="#e6121212">
 
     <ImageView
         android:id="@+id/iv_loading"
@@ -15,6 +16,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15sp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 
 </LinearLayout>

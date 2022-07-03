@@ -71,5 +71,18 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
 
+    // video player
+    implementation 'cn.jzvd:jiaozivideoplayer:7.0.5'
+
+    // 日历选择
+    implementation 'cn.aigestudio.datepicker:DatePicker:2.2.0'
+
+    // LitePal Database
+    implementation 'org.litepal.guolindev:core:3.2.3'
+
+    // 二维码
+    implementation 'cn.yipianfengye.android:zxing-library:2.2'
+
+
 
 }

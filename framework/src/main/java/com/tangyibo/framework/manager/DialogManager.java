@@ -10,7 +10,7 @@ public class DialogManager {
 
     private static volatile DialogManager mInstance = null;
 
-    public static DialogManager getmInstance() {
+    public static DialogManager getInstance() {
         if(mInstance == null){
             synchronized (DialogManager.class){
                 if(mInstance == null){

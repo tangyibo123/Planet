@@ -3,4 +3,106 @@
     <string name="login_send">发送</string>
     <string name="login_vercode">验证码</string>
     <string name="login_phone_number">手机号码</string>
+    <string name="text_upload_photo_loding">上传图片</string>
+    <string name="text_upload_title">完善资料</string>
+    <string name="text_add_friend_contact">从通讯录中导入</string>
+    <string name="text_login_phone">电话号码</string>
+    <string name="text_login_phone_null">电话号码不能为空</string>
+    <string name="text_add_friend_no_me">不能查询本人</string>
+    <string name="text_add_friend_content">推荐好友</string>
+    <string name="text_add_friend_title">搜索结果</string>
+    <string name="text_user_add_friend">添加好友</string>
+    <string name="text_search_age">岁</string>
+    <string name="text_user_chat">聊天</string>
+    <string name="text_user_audio_chat">语音通话</string>
+    <string name="text_user_video_chat">视频通话</string>
+    <string name="dialog_add_firend_title">添加好友</string>
+    <string name="dialog_add_firend_msg">验证信息</string>
+    <string name="dialog_add_firend_cancel">取消</string>
+    <string name="dialog_add_firend_add">添加</string>
+    <string name="text_me_info_sex">性别</string>
+    <string name="text_me_info_age">年龄</string>
+    <string name="text_me_info_birthday">生日</string>
+    <string name="text_me_info_constellation">星座</string>
+    <string name="text_me_info_hobby">爱好</string>
+    <string name="text_me_info_status">状态</string>
+    <string name="text_me_info_boy">男</string>
+    <string name="text_me_info_girl">女</string>
+    <string name="text_me_info_tips">你好，我是</string>
+    <string name="text_user_info">用户信息</string>
+    <string name="text_square_hint_text">记录这一刻...</string>
+    <string name="text_main_square">广场</string>
+    <string name="text_iv_pre_downloading">正在下载...</string>
+    <string name="text_iv_pre_save_fail">保存失败</string>
+    <string name="text_push_ing">正在发布...</string>
+    <string name="text_push_type_img">图片</string>
+    <string name="text_push_type_music">音乐</string>
+    <string name="text_push_type_video">视频</string>
+    <string name="menu_input_text">发表</string>
+    <string name="menu_info_save_text">保存</string>
+    <string name="text_push_ed_null">请输入内容</string>
+    <string name="text_push_fail">发布失败</string>
+    <string name="text_square_psuh">发布动态</string>
+    <string name="text_server_status_text_1">在线</string>
+    <string name="text_server_status_text_2">连接中...</string>
+    <string name="text_server_status_text_3">离线</string>
+    <string name="text_server_status_text_4">网络不可用</string>
+    <string name="text_server_status_text_5">服务器异常</string>
+    <string name="text_server_status_text_6">Token错误</string>
+    <string name="text_me_info_name">昵称</string>
+    <string name="text_me_info_desc">签名</string>
+    <string name="text_dialog_cancel">返回</string>
+    <string name="text_me_info_update">正在更新...</string>
+    <string name="text_update_nickname_null">昵称不能为空</string>
+    <string name="text_me_item_title_1">个人信息</string>
+    <string name="text_new_friend_agree">已同意</string>
+    <string name="text_new_friend_no_agree">已拒绝</string>
+    <string name="text_me_item_title_3">新朋友</string>
+    <string name="text_private_set_open_ing">正在打开...</string>
+    <string name="text_private_set_succeess">打开成功</string>
+    <string name="text_private_set_close_ing">正在关闭...</string>
+    <string name="text_private_set_fail">关闭成功</string>
+    <string name="text_private_setting_title">隐私模式</string>
+    <string name="text_private_setting_content">开启后不能从通讯中找到我</string>
+    <string name="text_me_item_title_4">隐私设置</string>
+    <string name="text_share_download">保存到相册</string>
+    <string name="text_shar_save_ing">保存中...</string>
+    <string name="text_me_item_title_5">分享星球</string>
+
+    <string-array name="ConstellatioArray">
+        <item>白羊座</item>
+        <item>金牛座</item>
+        <item>双子座</item>
+        <item>巨蟹座</item>
+        <item>狮子座</item>
+        <item>处女座</item>
+        <item>天秤座</item>
+        <item>天蝎座</item>
+        <item>射手座</item>
+        <item>摩羯座</item>
+        <item>水瓶座</item>
+        <item>双鱼座</item>
+    </string-array>
+
+    <string-array name="StatusArray">
+        <item>已婚</item>
+        <item>单身</item>
+        <item>热恋</item>
+        <item>单恋</item>
+    </string-array>
+
+    <string-array name="HobbyArray">
+        <item>运动</item>
+        <item>音乐</item>
+        <item>电影</item>
+        <item>绘画</item>
+        <item>小说</item>
+        <item>冒险</item>
+        <item>拼图</item>
+        <item>收藏</item>
+        <item>游戏</item>
+        <item>发呆</item>
+        <item>卖萌</item>
+        <item>网恋</item>
+    </string-array>
 </resources>
