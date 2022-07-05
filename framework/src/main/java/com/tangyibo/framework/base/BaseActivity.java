@@ -6,12 +6,21 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
+import com.tangyibo.framework.event.EventHelper;
+import com.tangyibo.framework.event.MessageEvent;
+import com.tangyibo.framework.helper.ActivityHelper;
+import com.tangyibo.framework.utils.LanguageUtils;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,6 +149,37 @@ public class BaseActivity extends AppCompatActivity {
         startActivityForResult(intent, PERMISSION_WINDOW_REQUEST_CODE);
     }
 
+    /**
+     * EventBus的步骤：
+     * 1.注册
+     * 2.声明注册方法 onEvent
+     * 3.发送事件
+     */
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        ActivityHelper.getInstance().addActivity(this);
+
+        LanguageUtils.updateLanguaue(this);
+        EventHelper.register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventHelper.unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event) {
+        switch (event.getType()) {
+            case EventHelper.EVENT_RUPDATE_LANGUAUE:
+                LanguageUtils.updateLanguaue(this);
+                recreate();
+                break;
+        }
+    }
 
 }

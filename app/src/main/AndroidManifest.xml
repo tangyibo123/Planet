@@ -56,6 +56,12 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"/>
 
+        <!--二维码-->
+        <activity
+            android:name=".ui.QrCodeActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/GuideThemeFull"/>
+
         <!--添加好友-->
         <activity
             android:name=".ui.AddFriendActivity"
@@ -116,13 +122,44 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"/>
 
-
-        <!--二维码-->
+        <!--通知-->
         <activity
-            android:name=".ui.QrCodeActivity"
+            android:name=".ui.NoticeActivity"
+            android:label="@string/text_me_item_title_6"
             android:launchMode="singleTask"
-            android:theme="@style/GuideThemeFull"
-            tools:ignore="Instantiatable" />
+            android:theme="@style/AppTheme"/>
+
+        <!--设置-->
+        <activity
+            android:name=".ui.SettingActivity"
+            android:label="@string/text_me_item_title_7"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme"/>
+
+        <!--聊天-->
+        <activity
+            android:name=".ui.ChatActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme"/>
+
+        <!--聊天信息-->
+        <activity
+            android:name=".ui.ChatInfoActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme"/>
+
+        <!--主题-->
+        <activity
+            android:name=".ui.ChatThemeActivity"
+            android:label="主题"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme"/>
+
+        <!--位置-->
+        <activity
+            android:name=".ui.LocationActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme"/>
 
         <!--FileProvide-->
         <provider
@@ -135,11 +172,26 @@
                 android:resource="@xml/filepaths" />
         </provider>
 
+        <!--android:process=":ipc"-->
+        <!--云服务-->
+        <service
+            android:name=".service.CloudService"
+            android:exported="true" />
         <!--Bmob-->
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="com.tangyibo.planet.BmobContentProvider">
         </provider>
+        <!--离线消息-->
+        <receiver
+            android:name=".receiver.SealNotificationReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MESSAGE_CLICKED" />
+                <action android:name="io.rong.push.intent.THIRD_PARTY_PUSH_STATE" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.tangyibo.framework.utils.CommonUtils;
+import com.tangyibo.framework.utils.LogUtils;
 
 import java.io.File;
 import java.util.List;
@@ -229,16 +230,16 @@ public class BmobManager {
         query.findObjects(listener);
     }
 
-//    /**
-//     * 查询缘分池
-//     *
-//     * @param listener
-//     */
-//    public void queryFateSet(FindListener<FateSet> listener) {
-//        BmobQuery<FateSet> query = new BmobQuery<>();
-//        query.findObjects(listener);
-//    }
-//
+    /**
+     * 查询缘分池
+     *
+     * @param listener
+     */
+    public void queryFateSet(FindListener<FateSet> listener) {
+        BmobQuery<FateSet> query = new BmobQuery<>();
+        query.findObjects(listener);
+    }
+
     /**
      * 查询基类
      *
@@ -288,28 +289,28 @@ public class BmobManager {
         set.setObjectId(id);
         set.delete(listener);
     }
-//    /**
-//     * 添加到缘分池中
-//     *
-//     * @param listener
-//     */
-//    public void addFateSet(SaveListener<String> listener) {
-//        FateSet set = new FateSet();
-//        set.setUserId(getUser().getObjectId());
-//        set.save(listener);
-//    }
-//
-//    /**
-//     * 删除缘分池
-//     *
-//     * @param id
-//     * @param listener
-//     */
-//    public void delFateSet(String id, UpdateListener listener) {
-//        FateSet set = new FateSet();
-//        set.setObjectId(id);
-//        set.delete(listener);
-//    }
+    /**
+     * 添加到缘分池中
+     *
+     * @param listener
+     */
+    public void addFateSet(SaveListener<String> listener) {
+        FateSet set = new FateSet();
+        set.setUserId(getUser().getObjectId());
+        set.save(listener);
+    }
+
+    /**
+     * 删除缘分池
+     *
+     * @param id
+     * @param listener
+     */
+    public void delFateSet(String id, UpdateListener listener) {
+        FateSet set = new FateSet();
+        set.setObjectId(id);
+        set.delete(listener);
+    }
 
     /**
      * 发布广场
@@ -377,20 +378,20 @@ public class BmobManager {
             }
         });
     }
-//
-//    public void addUpdateSet() {
-//        UpdateSet updateSet = new UpdateSet();
-//        updateSet.setVersionCode(2);
-//        updateSet.setPath("---");
-//        updateSet.setDesc("---");
-//        updateSet.save(new SaveListener<String>() {
-//            @Override
-//            public void done(String s, BmobException e) {
-//                LogUtils.i("s:" + s + "e:" + e.toString());
-//            }
-//        });
-//    }
-//
+
+    public void addUpdateSet() {
+        UpdateSet updateSet = new UpdateSet();
+        updateSet.setVersionCode(2);
+        updateSet.setPath("---");
+        updateSet.setDesc("---");
+        updateSet.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                LogUtils.i("s:" + s + "e:" + e.toString());
+            }
+        });
+    }
+
     // 查询更新
     public void queryUpdateSet(FindListener<UpdateSet> listener) {
         BmobQuery<UpdateSet> bmobQuery = new BmobQuery<>();

@@ -18,7 +18,10 @@ import androidx.annotation.Nullable;
 import com.tangyibo.framework.base.BaseFragment;
 import com.tangyibo.framework.bmob.BmobManager;
 import com.tangyibo.framework.bmob.PlanetUser;
+import com.tangyibo.framework.event.EventHelper;
+import com.tangyibo.framework.event.MessageEvent;
 import com.tangyibo.framework.manager.DialogManager;
+import com.tangyibo.framework.manager.PairFriendManager;
 import com.tangyibo.framework.manager.RongCloudManager;
 import com.tangyibo.framework.view.tagview.TagCloudView;
 import com.tangyibo.framework.utils.CommonUtils;
@@ -34,6 +37,9 @@ import com.tangyibo.planet.ui.AddFriendActivity;
 import com.tangyibo.planet.ui.QrCodeActivity;
 import com.tangyibo.planet.ui.UserInfoActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,6 +141,21 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             }
         });
 
+        //绑定接口
+        PairFriendManager.getInstance().setOnPairResultListener(new PairFriendManager.OnPairResultListener() {
+
+            @Override
+            public void OnPairListener(String userId) {
+                startUserInfo(userId);
+            }
+
+            @Override
+            public void OnPairFailListener() {
+                mLoadingView.hide();
+                Toast.makeText(getActivity(), getString(R.string.text_pair_null), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         loadPlanetUser();
     }
 
@@ -214,6 +235,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         mStarList.add(model);
     }
 
+    private void pairUser(int index) {
+        mLoadingView.show(getString(R.string.text_pair_random));
+        if (CommonUtils.isEmpty(mAllUserList)) {
+            //计算
+            PairFriendManager.getInstance().pairUser(index, mAllUserList);
+        } else {
+            mLoadingView.hide();
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -226,6 +256,47 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.iv_add:
                 //添加好友
                 startActivity(new Intent(getActivity(), AddFriendActivity.class));
+                break;
+            case R.id.ll_random:
+                //随机匹配
+                pairUser(0);
+                break;
+            case R.id.ll_soul:
+
+                if(TextUtils.isEmpty(BmobManager.getInstance().getUser().getConstellation())){
+                    tv_null_text.setText(getString(R.string.text_star_par_tips_1));
+                    DialogManager.getInstance().show(mNullDialogView);
+                    return;
+                }
+
+                if(BmobManager.getInstance().getUser().getAge() == 0){
+                    tv_null_text.setText(getString(R.string.text_star_par_tips_2));
+                    DialogManager.getInstance().show(mNullDialogView);
+                    return;
+                }
+
+                if(TextUtils.isEmpty(BmobManager.getInstance().getUser().getHobby())){
+                    tv_null_text.setText(getString(R.string.text_star_par_tips_3));
+                    DialogManager.getInstance().show(mNullDialogView);
+                    return;
+                }
+
+                if(TextUtils.isEmpty(BmobManager.getInstance().getUser().getStatus())){
+                    tv_null_text.setText(getString(R.string.text_star_par_tips_4));
+                    DialogManager.getInstance().show(mNullDialogView);
+                    return;
+                }
+
+                //灵魂匹配
+                pairUser(1);
+                break;
+            case R.id.ll_fate:
+                //缘分匹配
+                pairUser(2);
+                break;
+            case R.id.ll_love:
+                //恋爱匹配
+                pairUser(3);
                 break;
         }
     }
@@ -241,11 +312,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     String result = bundle.getString(CodeUtils.RESULT_STRING);
                     LogUtils.i("result：" + result);
-                    //Meet#c7a9b4794f
+                    // "下载星球App，一起来玩鸭！搜索我的id：" + userId
                     if (!TextUtils.isEmpty(result)) {
                         //是我们自己的二维码
-                        if (result.startsWith("Meet")) {
-                            String[] split = result.split("#");
+                        if (result.startsWith("下载星球App")) {
+                            String[] split = result.split("：");
                             LogUtils.i("split:" + split.toString());
                             if (split != null && split.length >= 2) {
                                 try {
@@ -267,5 +338,26 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        PairFriendManager.getInstance().disposable();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event) {
+        switch (event.getType()) {
+            case EventHelper.EVENT_SERVER_CONNECT_STATUS:
+                if(event.isConnectStatus()){
+                    if(CommonUtils.isEmpty(mStarList)){
+                        tv_connect_status.setVisibility(View.GONE);
+                    }
+                }else{
+                    tv_connect_status.setText(getString(R.string.text_star_pserver_fail));
+                }
+                break;
+        }
     }
 }

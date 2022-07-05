@@ -18,7 +18,10 @@ import io.rong.calllib.IRongReceivedCallListener;
 import io.rong.calllib.RongCallClient;
 import io.rong.calllib.RongCallCommon;
 import io.rong.imlib.IRongCallback;
+import io.rong.imlib.IRongCoreListener;
+import io.rong.imlib.RongCoreClient;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.listener.OnReceiveMessageWrapperListener;
 import io.rong.imlib.location.message.LocationMessage;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
@@ -28,7 +31,7 @@ import io.rong.message.TextMessage;
 public class RongCloudManager {
 
     //融云服务端 API 的接口 (Token代表一个用户在融云的唯一身份标识,提供准确的 App Key / Secret，使用用户ID换取对应的Token）
-    public static final String TOKEN_URL = "http://api-cn.ronghub.com/user/getToken.json";
+    public static final String TOKEN_URL = "https://api-cn.ronghub.com/user/getToken.json";
     //RongCloud App Key
     public static final String RongCloud_KEY = "x18ywvqfxysrc";
     public static final String RongCloud_SECRET = "ygyTJBrI286O";
@@ -73,18 +76,18 @@ public class RongCloudManager {
     }
 
     //连接融云服务
-    public void connectRongCloud(Context mContext, String token) {
-        int timeLimit = 5;
+    public void connectRongCloud(String token) {
+        int timeLimit = 10;
         LogUtils.i("融云服务连接中 ... ");
         RongIMClient.connect(token, timeLimit, new RongIMClient.ConnectCallback() {
             @Override
             public void onDatabaseOpened(RongIMClient.DatabaseOpenStatus databaseOpenStatus) {
                 if(RongIMClient.DatabaseOpenStatus.DATABASE_OPEN_SUCCESS.equals(databaseOpenStatus)) {
                     //本地数据库打开，跳转到会话列表页面
-                    Toast.makeText(mContext, "本地数据库打开，即将跳转到会话列表~", Toast.LENGTH_SHORT);
+                    LogUtils.e("本地数据库打开，即将跳转到会话列表~");
                 } else {
                     //数据库打开失败，可以弹出 toast 提示。
-                    Toast.makeText(mContext, "数据库打开失败，请重试！", Toast.LENGTH_SHORT);
+                    LogUtils.e("数据库打开失败，请重试！");
                 }
             }
             @Override
@@ -131,8 +134,8 @@ public class RongCloudManager {
      *
      * @param listener
      */
-    public void setOnReceiveMessageListener(RongIMClient.OnReceiveMessageListener listener) {
-        RongIMClient.setOnReceiveMessageListener(listener);
+    public void setOnReceiveMessageListener(OnReceiveMessageWrapperListener listener) {
+        RongCoreClient.addOnReceiveMessageListener(listener);
     }
 
     //发送文本消息的结果回调

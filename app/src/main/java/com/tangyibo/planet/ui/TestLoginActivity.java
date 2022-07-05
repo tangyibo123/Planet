@@ -40,6 +40,12 @@ public class TestLoginActivity extends BaseActivity implements View.OnClickListe
         btn_login = (Button) findViewById(R.id.btn_login);
 
         btn_login.setOnClickListener(this);
+
+        // 如果曾经登录过，自动填入手机号码
+        String phone = SpUtils.getInstance().getString(Constants.SP_PHONE, "");
+        if (!TextUtils.isEmpty(phone)) {
+            et_phone.setText(phone);
+        }
     }
 
     @Override
@@ -57,7 +63,6 @@ public class TestLoginActivity extends BaseActivity implements View.OnClickListe
                     Toast.makeText(this, "密码不能为空！", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                //BmobManager.getInstance().updateAccount(phone, password);
                 BmobManager.getInstance().loginByAccount(phone, password, new SaveListener<PlanetUser>() {
                     @Override
                     public void done(PlanetUser imUser, BmobException e) {

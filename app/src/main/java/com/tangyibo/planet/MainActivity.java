@@ -15,10 +15,15 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.tangyibo.framework.base.BaseActivity;
 import com.tangyibo.framework.bmob.BmobManager;
+import com.tangyibo.framework.bmob.PlanetUser;
 import com.tangyibo.framework.data.Constants;
-import com.tangyibo.framework.json.TokenBean;
+import com.tangyibo.framework.event.EventHelper;
+import com.tangyibo.framework.event.MessageEvent;
+import com.tangyibo.framework.gson.TokenBean;
+import com.tangyibo.framework.helper.GlideHelper;
 import com.tangyibo.framework.manager.DialogManager;
 import com.tangyibo.framework.manager.HttpManager;
+import com.tangyibo.framework.utils.CommonUtils;
 import com.tangyibo.framework.utils.LogUtils;
 import com.tangyibo.framework.utils.SpUtils;
 import com.tangyibo.framework.view.DialogView;
@@ -28,10 +33,16 @@ import com.tangyibo.planet.fragment.MeFragment;
 import com.tangyibo.planet.fragment.SquareFragment;
 import com.tangyibo.planet.service.CloudService;
 import com.tangyibo.planet.ui.FirstUploadActivity;
+import com.tangyibo.planet.ui.MeInfoActivity;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.List;
 
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -133,6 +144,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         String token = SpUtils.getInstance().getString(Constants.SP_TOKEN, "");
         if (!TextUtils.isEmpty(token)) {
             // 启动云服务去连接融云
+            LogUtils.i("启动云服务连接融云");
             startCloudService();
         }
         else {
@@ -170,41 +182,52 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
          * 1.根据用户id去融云服务端接口获取Token
          * 2.连接融云
          */
-        final HashMap<String, String> map = new HashMap<>();
-        map.put("userId", BmobManager.getInstance().getUser().getObjectId());
-        map.put("name", BmobManager.getInstance().getUser().getTokenNickName());
-        //map.put("portraitUri", BmobManager.getInstance().getUser().getTokenPhoto());
-
-        //通过OkHttp请求Token
-        disposable = Observable.create(new ObservableOnSubscribe<String>() {
+        BmobManager.getInstance().queryPhoneUser(SpUtils.getInstance().getString(Constants.SP_PHONE, ""), new FindListener<PlanetUser>() {
             @Override
-            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-                //执行请求过程
-                String json = HttpManager.getInstance().postCloudToken(map);
-                LogUtils.i("json:" + json);
-                emitter.onNext(json);
-                emitter.onComplete();
-            }
-            //线程调度
-        }).subscribeOn(Schedulers.newThread())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) throws Exception {
-                        parsingCloudToken(s);
+            public void done(List<PlanetUser> list, BmobException e) {
+                if (e == null) {
+                    if (CommonUtils.isEmpty(list)) {
+                        PlanetUser imUser = list.get(0);
+                        final HashMap<String, String> map = new HashMap<>();
+                        map.put("userId", imUser.getObjectId());
+                        map.put("name", imUser.getNickName());
+                        map.put("portraitUri", imUser.getPhoto());
+
+                        //通过OkHttp请求Token
+                        disposable = Observable.create(new ObservableOnSubscribe<String>() {
+                            @Override
+                            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                                //执行请求过程
+                                String json = HttpManager.getInstance().postCloudToken(map);
+                                LogUtils.i("json:" + json);
+                                emitter.onNext(json);
+                                emitter.onComplete();
+                            }
+                            //线程调度
+                        }).subscribeOn(Schedulers.newThread())
+                                .subscribeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Consumer<String>() {
+                                    @Override
+                                    public void accept(String s) throws Exception {
+                                        parsingCloudToken(s);
+                                    }
+                                });
                     }
-                });
+                }
+            }
+        });
     }
 
     // 解析Token
     private void parsingCloudToken(String s) {
         try {
-            LogUtils.i("parsingCloudToken:" + s);
+            LogUtils.i("解析融云返回的token:" + s);
             TokenBean tokenBean = new Gson().fromJson(s, TokenBean.class);
             if (tokenBean.getCode() == 200) {
                 if (!TextUtils.isEmpty(tokenBean.getToken())) {
                     //保存Token
                     SpUtils.getInstance().putString(Constants.SP_TOKEN, tokenBean.getToken());
+                    LogUtils.i("融云id->token: "+tokenBean.getToken());
                     startCloudService();
                 }
             } else if (tokenBean.getCode() == 2007) {
@@ -396,6 +419,44 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 checkMainTab(3);
                 break;
         }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event) {
+        switch (event.getType()) {
+            case EventHelper.EVENT_REFRE_TOKEN_STATUS:
+                checkToken();
+                break;
+        }
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (disposable != null) {
+            if (!disposable.isDisposed()) {
+                disposable.dispose();
+            }
+        }
+    }
+
+    //第一次按下时间
+    private long firstClick;
+
+    @Override
+    public void onBackPressed() {
+        AppExit();
+        //super.onBackPressed();
+    }
+
+    /**
+     * 再按一次退出
+     */
+    public void AppExit() {
+        if (System.currentTimeMillis() - this.firstClick > 2000L) {
+            this.firstClick = System.currentTimeMillis();
+            Toast.makeText(this, getString(R.string.text_main_exit), Toast.LENGTH_LONG).show();
+            return;
+        }
+        finish();
     }
 }

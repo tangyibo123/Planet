@@ -1,5 +1,6 @@
 package com.tangyibo.planet.model;
 
+// 主页-添加好友
 public class AddFriendModel {
 
     //类型

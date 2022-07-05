@@ -1,6 +1,8 @@
 package com.tangyibo.planet.base;
 
+import android.app.ActivityManager;
 import android.app.Application;
+import android.content.Context;
 
 import com.tangyibo.framework.FrameWork;
 
@@ -16,8 +18,31 @@ public class BaseApp extends Application {
          * 2.如果组件一定要在App中初始化，那么尽可能的延时
          * 3.非必要的组件，子线程中初始化
          */
+        //只在主进程中初始化
+        if (getApplicationInfo().packageName.equals(
+                getCurProcessName(getApplicationContext()))) {
+            //获取渠道
+            //String flavor = FlavorHelper.getFlavor(this);
+            //Toast.makeText(this, "flavor:" + flavor, Toast.LENGTH_SHORT).show();
+            FrameWork.getFramework().initFramework(this);
+        }
+    }
 
-        FrameWork.getFramework().initFramework(this);
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+    }
 
+    public static String getCurProcessName(Context context) {
+        int pid = android.os.Process.myPid();
+        ActivityManager activityManager = (ActivityManager)
+                context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningAppProcessInfo appProcess :
+                activityManager.getRunningAppProcesses()) {
+            if (appProcess.pid == pid) {
+                return appProcess.processName;
+            }
+        }
+        return null;
     }
 }

@@ -13,20 +13,28 @@
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/drawable/login_edit.xml" value="0.14802631578947367" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/drawable/shape_square_music_bg.xml" value="0.13819444444444445" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_add_friend.xml" value="0.264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_chat.xml" value="0.264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_chat_info.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_chat_theme.xml" value="0.16019736842105264" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_contact_friend.xml" value="0.1" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_first_upload.xml" value="0.16" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_guide.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_image_preview.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_location.xml" value="0.16" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_login.xml" value="0.12" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_me_info.xml" value="0.264" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_new_friend.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_notice.xml" value="0.16" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_private_set.xml" value="0.264" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_push_square.xml" value="0.12" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_qrcode.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_setting.xml" value="0.176" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_share_img.xml" value="0.1" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_start.xml" value="0.2" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_test_login.xml" value="0.13914473684210527" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/activity_user_info.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/dialog_delete_friend.xml" value="0.16019736842105264" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/dialog_first_upload.xml" value="0.2" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/dialog_select_age.xml" value="0.16019736842105264" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/dialog_select_birthday.xml" value="0.16019736842105264" />
@@ -34,24 +42,42 @@
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/dialog_select_photo.xml" value="0.2" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/dialog_select_sex.xml" value="0.16019736842105264" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/dialog_send_friend.xml" value="0.264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/dialog_update_app.xml" value="0.2" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/dialog_ver_code.xml" value="0.16019736842105264" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/fragment.xml" value="0.11315789473684211" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/fragment_all_friend.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/fragment_call_record.xml" value="0.16019736842105264" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/fragment_chat.xml" value="0.11315789473684211" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/fragment_chat_record.xml" value="0.264" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/fragment_me.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/fragment_square.xml" value="0.264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_all_friend_item.xml" value="0.2" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_call_record.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_chat_audio.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_chat_left_img.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_chat_left_location.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_chat_left_text.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_chat_record_item.xml" value="0.264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_chat_right.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_chat_right_img.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_chat_right_location.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_chat_small_audio.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_chat_video.xml" value="0.16019736842105264" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_empty_view.xml" value="0.10921052631578948" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_me_age_item.xml" value="0.16019736842105264" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_new_friend_item.xml" value="0.16019736842105264" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_pager_guide_1.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_pager_guide_2.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_pager_guide_3.xml" value="0.176" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_qrcode.xml" value="0.16019736842105264" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_search_title_item.xml" value="0.1" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_search_user_item.xml" value="0.1" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_square_item.xml" value="0.16019736842105264" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_square_music_item.xml" value="0.16019736842105264" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_star_null_item.xml" value="0.11315789473684211" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_tab_text.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_theme_item.xml" value="0.16019736842105264" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/layout/layout_user_info_item.xml" value="0.16019736842105264" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/menu/chat_menu.xml" value="0.16019736842105264" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/app/src/main/res/menu/input_menu.xml" value="0.16019736842105264" />
@@ -62,6 +88,7 @@
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/framework/src/main/res/drawable/ic_launcher_background.xml" value="0.14583333333333334" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/framework/src/main/res/layout/activity_main.xml" value="0.1296875" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/framework/src/main/res/layout/dialog_loading.xml" value="0.16019736842105264" />
+        <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/framework/src/main/res/layout/dialog_update_app.xml" value="0.2" />
         <entry key="..\:/Users/86132/AndroidStudioProjects/Planet/framework/src/main/res/layout/layout_star_view_item.xml" value="0.11315789473684211" />
       </map>
     </option>

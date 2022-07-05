@@ -3,7 +3,10 @@ package com.tangyibo.planet.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -76,18 +79,25 @@ public class ImagePreviewActivity extends BaseActivity implements View.OnClickLi
                 finish();
                 break;
             case R.id.tv_download:
-                Toast.makeText(this, getString(R.string.text_iv_pre_downloading), Toast.LENGTH_SHORT).show();
-                GlideHelper.loadUrlToBitmap(this, url, new GlideHelper.OnGlideBitmapResultListener() {
-                    @Override
-                    public void onResourceReady(Bitmap resource) {
-                        if(resource != null){
-                            FileManager.getInstance().saveBitmapToAlbum(ImagePreviewActivity.this,resource);
-                        }else{
-                            Toast.makeText(ImagePreviewActivity.this, getString(R.string.text_iv_pre_save_fail), Toast.LENGTH_SHORT).show();
-                        }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    if (!Environment.isExternalStorageManager()) {
+                        Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                        startActivity(intent);
+                        return;
+                    } else {
+                        GlideHelper.loadUrlToBitmap(this, url, new GlideHelper.OnGlideBitmapResultListener() {
+                            @Override
+                            public void onResourceReady(Bitmap resource) {
+                                if (resource != null) {
+                                    FileManager.getInstance().saveBitmapToAlbum(ImagePreviewActivity.this, resource);
+                                } else {
+                                    Toast.makeText(ImagePreviewActivity.this, getString(R.string.text_iv_pre_save_fail), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                     }
-                });
-                break;
+                    break;
+                }
         }
     }
 }

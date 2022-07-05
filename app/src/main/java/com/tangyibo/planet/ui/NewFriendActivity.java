@@ -3,6 +3,7 @@ package com.tangyibo.planet.ui;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import com.tangyibo.framework.bmob.BmobManager;
 import com.tangyibo.framework.bmob.PlanetUser;
 import com.tangyibo.framework.data.LitePalManager;
 import com.tangyibo.framework.data.NewFriend;
+import com.tangyibo.framework.event.EventHelper;
 import com.tangyibo.framework.manager.RongCloudManager;
 import com.tangyibo.framework.utils.CommonUtils;
 import com.tangyibo.framework.view.adapter.CommonAdapter;
@@ -123,24 +125,32 @@ public class NewFriendActivity extends BaseBackActivity {
                          * 4.对方将我添加到好友列表
                          * 5.刷新好友列表
                          */
-                        updateItem(position, 0);
-                        //将好友添加到自己的好友列表
-                        //构建一个ImUSER
-                        PlanetUser friendUser = new PlanetUser();
-                        friendUser.setObjectId(model.getId());
-                        BmobManager.getInstance().addFriend(friendUser, new SaveListener<String>() {
-                            @Override
-                            public void done(String s, BmobException e) {
-                                if (e == null) {
-                                    //保存成功
-                                    //通知对方
-                                    RongCloudManager.getInstance().sendTextMessage("",
-                                            RongCloudManager.TYPE_ARGEED_FRIEND, imUser.getObjectId());
-                                    //刷新好友列表
-                                    //EventManager.post(EventManager.FLAG_UPDATE_FRIEND_LIST);
+                        if (model.getIsAgree() == 0) {
+                            Toast.makeText(NewFriendActivity.this, "不能重复添加！", Toast.LENGTH_SHORT);
+                        }
+                        else if (model.getIsAgree() == 1){
+                            Toast.makeText(NewFriendActivity.this, "已拒绝，不能再添加！", Toast.LENGTH_SHORT);
+                        }
+                        else {
+                            updateItem(position, 0);
+                            //将好友添加到自己的好友列表
+                            //构建一个ImUSER
+                            PlanetUser friendUser = new PlanetUser();
+                            friendUser.setObjectId(model.getId());
+                            BmobManager.getInstance().addFriend(friendUser, new SaveListener<String>() {
+                                @Override
+                                public void done(String s, BmobException e) {
+                                    if (e == null) {
+                                        //保存成功
+                                        //通知对方
+                                        RongCloudManager.getInstance().sendTextMessage("",
+                                                RongCloudManager.TYPE_ARGEED_FRIEND, imUser.getObjectId());
+                                        //刷新好友列表
+                                        EventHelper.post(EventHelper.FLAG_UPDATE_FRIEND_LIST);
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
                     }
                 });
 

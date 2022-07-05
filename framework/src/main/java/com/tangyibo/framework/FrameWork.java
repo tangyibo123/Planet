@@ -4,7 +4,9 @@ import android.content.Context;
 
 import com.tangyibo.framework.bmob.BmobManager;
 import com.tangyibo.framework.manager.KeywordManager;
+import com.tangyibo.framework.manager.MapManager;
 import com.tangyibo.framework.manager.MyWindowManager;
+import com.tangyibo.framework.manager.NoticeManager;
 import com.tangyibo.framework.manager.RongCloudManager;
 import com.tangyibo.framework.utils.LogUtils;
 import com.tangyibo.framework.utils.SpUtils;
@@ -47,22 +49,22 @@ public class FrameWork {
         LogUtils.i("initFramework");
         SpUtils.getInstance().initSp(mContext);
         BmobManager.getInstance().initBmob(mContext);
-//        RongCloudManager.getInstance().initRongCloud(mContext);
+        RongCloudManager.getInstance().initRongCloud(mContext);
         LitePal.initialize(mContext);
-//        MapManager.getInstance().initMap(mContext);
+        MapManager.getInstance().initMap(mContext);
         MyWindowManager.getInstance().initWindow(mContext);
-//        CrashReport.initCrashReport(mContext, BUGLY_KEY, BuildConfig.LOG_DEBUG);
+        //CrashReport.initCrashReport(mContext, BUGLY_KEY, BuildConfig.LOG_DEBUG);
         ZXingLibrary.initDisplayOpinion(mContext);
-//        NotificationHelper.getInstance().createChannel(mContext);
+        NoticeManager.getInstance().createChannel(mContext);
         KeywordManager.getInstance().initManager(mContext);
 
-//        //全局捕获RxJava异常
-//        RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
-//            @Override
-//            public void accept(Throwable throwable) throws Exception {
-//                LogUtils.e("RxJava：" + throwable.toString());
-//            }
-//        });
+        //全局捕获RxJava异常
+        RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                LogUtils.e("RxJava：" + throwable.toString());
+            }
+        });
     }
 
 }

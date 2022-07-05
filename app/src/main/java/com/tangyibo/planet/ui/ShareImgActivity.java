@@ -92,7 +92,7 @@ public class ShareImgActivity extends BaseBackActivity implements View.OnClickLi
         iv_qrcode.post(new Runnable() {
             @Override
             public void run() {
-                String textContent = "下载星球App，搜索我的id：" + userId + " 就可以添加好友啦！一起来玩鸭~";
+                String textContent = "下载星球App,一起来玩鸭!搜索我的id#" + userId;
                 Bitmap mBitmap = CodeUtils.createImage(textContent,
                         iv_qrcode.getWidth(), iv_qrcode.getHeight(), null);
                 iv_qrcode.setImageBitmap(mBitmap);
@@ -115,45 +115,22 @@ public class ShareImgActivity extends BaseBackActivity implements View.OnClickLi
                     }
                     else {
                         /**
-                         * 1.View截图
-                         * 2.创建一个Bitmap
-                         * 3.保存到相册
+                         * 已经显示在屏幕上的，不需要重新绘制UI
+                         * 1.将View绘制到Bipmap上
+                         * 2.保存Bitmap到相册
                          */
 
                         mLodingView.show();
 
-                        /**
-                         * setDrawingCacheEnabled
-                         * 保留我们的绘制副本
-                         * 1.重新测量
-                         * 2.重新布局
-                         * 3.得到我们的DrawingCache
-                         * 4.转换成Bitmap
-                         */
-                        //ll_content.setDrawingCacheEnabled(true);
-                        //ll_content.buildDrawingCache();
-
-                        ll_content.measure(
-                                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-
-                        ll_content.layout(0, 0, ll_content.getMeasuredWidth(),
-                                ll_content.getMeasuredHeight());
-
-                        //Bitmap mBitmap = ll_content.getDrawingCache();
-
-                        Bitmap mBitmap = Bitmap.createBitmap(ll_content.getMeasuredWidth(),
-                                ll_content.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
-                        Canvas c = new Canvas(mBitmap);
-                        c.scale(1, 1);
-                        ll_content.draw(c);
+                        Bitmap mBitmap = Bitmap.createBitmap(ll_content.getWidth(),
+                                ll_content.getHeight(), Bitmap.Config.ARGB_8888);
+                        Canvas canvas = new Canvas(mBitmap);
+                        ll_content.draw(canvas);
 
                         if (mBitmap != null) {
                             FileManager.getInstance().saveBitmapToAlbum(this, mBitmap);
                             mLodingView.hide();
                         }
-                        //ll_content.setDrawingCacheEnabled(false);
-                        //ll_content.destroyDrawingCache();
                         break;
                     }
                     }

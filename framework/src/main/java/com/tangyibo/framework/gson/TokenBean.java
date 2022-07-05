@@ -1,4 +1,4 @@
-package com.tangyibo.framework.json;
+package com.tangyibo.framework.gson;
 
 public class TokenBean {
 

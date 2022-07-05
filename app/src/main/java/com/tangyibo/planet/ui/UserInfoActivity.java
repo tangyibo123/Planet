@@ -260,14 +260,14 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 finish();
                 break;
             case R.id.iv_user_photo:
-                //ImagePreviewActivity.startActivity(this, true, imUser.getPhoto());
+                ImagePreviewActivity.startActivity(this, true, imUser.getPhoto());
                 break;
             case R.id.btn_add_friend:
                 DialogManager.getInstance().show(mAddFriendDialogView);
                 break;
             case R.id.btn_chat:
-                //ChatActivity.startActivity(UserInfoActivity.this,
-                //        userId, imUser.getNickName(), imUser.getPhoto());
+                ChatActivity.startActivity(UserInfoActivity.this,
+                        userId, imUser.getNickName(), imUser.getPhoto());
                 break;
             case R.id.btn_audio_chat:
                 //窗口权限

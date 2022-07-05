@@ -16,6 +16,8 @@ import com.tangyibo.framework.base.BaseFragment;
 import com.tangyibo.framework.bmob.BmobManager;
 import com.tangyibo.framework.bmob.PlanetUser;
 import com.tangyibo.framework.data.Constants;
+import com.tangyibo.framework.event.EventHelper;
+import com.tangyibo.framework.event.MessageEvent;
 import com.tangyibo.framework.helper.GlideHelper;
 import com.tangyibo.framework.manager.RongCloudManager;
 import com.tangyibo.framework.utils.CommonUtils;
@@ -28,6 +30,9 @@ import com.tangyibo.planet.ui.NoticeActivity;
 import com.tangyibo.planet.ui.PrivateSetActivity;
 import com.tangyibo.planet.ui.SettingActivity;
 import com.tangyibo.planet.ui.ShareImgActivity;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -128,6 +133,9 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_me_photo:
+                // 刷新头像
+                loadMeInfo();
             case R.id.ll_me_info:
                 //个人信息
                 startActivity(new Intent(getActivity(), MeInfoActivity.class));
@@ -151,6 +159,15 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.ll_setting:
                 //设置
                 startActivity(new Intent(getActivity(), SettingActivity.class));
+                break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event) {
+        switch (event.getType()) {
+            case EventHelper.EVENT_REFRE_ME_INFO:
+                loadMeInfo();
                 break;
         }
     }
