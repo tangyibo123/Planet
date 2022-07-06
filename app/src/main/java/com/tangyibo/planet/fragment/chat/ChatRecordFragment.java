@@ -24,7 +24,7 @@ import com.tangyibo.framework.view.adapter.CommonAdapter;
 import com.tangyibo.framework.view.adapter.CommonViewHolder;
 import com.tangyibo.planet.R;
 import com.tangyibo.planet.model.ChatRecordModel;
-import com.tangyibo.planet.ui.ChatActivity;
+import com.tangyibo.planet.ui.chat.ChatActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

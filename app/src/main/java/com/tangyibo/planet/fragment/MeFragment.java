@@ -24,19 +24,18 @@ import com.tangyibo.framework.utils.CommonUtils;
 import com.tangyibo.framework.utils.LogUtils;
 import com.tangyibo.framework.utils.SpUtils;
 import com.tangyibo.planet.R;
-import com.tangyibo.planet.ui.MeInfoActivity;
-import com.tangyibo.planet.ui.NewFriendActivity;
-import com.tangyibo.planet.ui.NoticeActivity;
-import com.tangyibo.planet.ui.PrivateSetActivity;
-import com.tangyibo.planet.ui.SettingActivity;
-import com.tangyibo.planet.ui.ShareImgActivity;
+import com.tangyibo.planet.ui.me.MeInfoActivity;
+import com.tangyibo.planet.ui.me.NewFriendActivity;
+import com.tangyibo.planet.ui.me.NoticeActivity;
+import com.tangyibo.planet.ui.me.PrivateSetActivity;
+import com.tangyibo.planet.ui.me.SettingActivity;
+import com.tangyibo.planet.ui.me.ShareImgActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
-import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import de.hdodenhof.circleimageview.CircleImageView;

@@ -20,7 +20,6 @@ import com.tangyibo.framework.data.Constants;
 import com.tangyibo.framework.event.EventHelper;
 import com.tangyibo.framework.event.MessageEvent;
 import com.tangyibo.framework.gson.TokenBean;
-import com.tangyibo.framework.helper.GlideHelper;
 import com.tangyibo.framework.manager.DialogManager;
 import com.tangyibo.framework.manager.HttpManager;
 import com.tangyibo.framework.utils.CommonUtils;
@@ -32,8 +31,7 @@ import com.tangyibo.planet.fragment.HomeFragment;
 import com.tangyibo.planet.fragment.MeFragment;
 import com.tangyibo.planet.fragment.SquareFragment;
 import com.tangyibo.planet.service.CloudService;
-import com.tangyibo.planet.ui.FirstUploadActivity;
-import com.tangyibo.planet.ui.MeInfoActivity;
+import com.tangyibo.planet.ui.home.FirstUploadActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

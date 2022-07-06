@@ -16,7 +16,7 @@
 
         <!--启动页-->
         <activity
-            android:name=".ui.StartActivity"
+            android:name=".ui.enter.StartActivity"
             android:exported="true"
             android:theme="@style/GuideThemeFull">
             <intent-filter>
@@ -33,131 +33,127 @@
 
         <!--引导页-->
         <activity
-            android:name=".ui.GuideActivity"
+            android:name=".ui.enter.GuideActivity"
             android:launchMode="singleTask"
             android:theme="@style/GuideThemeFull"/>
 
         <!--登录页-->
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.enter.LoginActivity"
             android:launchMode="singleTask"
             android:theme="@style/ThemeLogin"/>
 
         <!--测试登录页-->
         <activity
-            android:name=".ui.TestLoginActivity"
+            android:name=".ui.enter.TestLoginActivity"
             android:launchMode="singleTask"
             android:theme="@style/ThemeLogin"/>
 
         <!--上传头像-->
         <activity
-            android:name=".ui.FirstUploadActivity"
+            android:name=".ui.home.FirstUploadActivity"
             android:label="@string/text_upload_title"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"/>
 
         <!--二维码-->
-        <activity
-            android:name=".ui.QrCodeActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/GuideThemeFull"/>
 
         <!--添加好友-->
         <activity
-            android:name=".ui.AddFriendActivity"
+            android:name=".ui.home.AddFriendActivity"
             android:label="@string/text_user_add_friend"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"/>
 
         <!--从通讯录导入-->
         <activity
-            android:name=".ui.ContactFriendActivity"
+            android:name=".ui.home.ContactFriendActivity"
             android:label="@string/text_add_friend_contact"
             android:launchMode="singleTask" />
 
         <!--用户信息-->
         <activity
-            android:name=".ui.UserInfoActivity"
+            android:name=".ui.normal.UserInfoActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme" />
 
         <!--发朋友圈-->
         <activity
-            android:name=".ui.PushSquareActivity"
+            android:name=".ui.square.PushSquareActivity"
             android:label="@string/text_square_psuh"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme" />
 
         <!--图片预览-->
         <activity
-            android:name=".ui.ImagePreviewActivity"
+            android:name=".ui.normal.ImagePreviewActivity"
             android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <!--个人信息-->
         <activity
-            android:name=".ui.MeInfoActivity"
+            android:name=".ui.me.MeInfoActivity"
             android:label="@string/text_me_item_title_1"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"/>
 
         <!--新朋友-->
         <activity
-            android:name=".ui.NewFriendActivity"
+            android:name=".ui.me.NewFriendActivity"
             android:label="@string/text_me_item_title_3"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"/>
 
         <!--隐私设置-->
         <activity
-            android:name=".ui.PrivateSetActivity"
+            android:name=".ui.me.PrivateSetActivity"
             android:label="@string/text_me_item_title_4"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"/>
 
         <!--分享-->
         <activity
-            android:name=".ui.ShareImgActivity"
+            android:name=".ui.me.ShareImgActivity"
             android:label="@string/text_me_item_title_5"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"/>
 
         <!--通知-->
         <activity
-            android:name=".ui.NoticeActivity"
+            android:name=".ui.me.NoticeActivity"
             android:label="@string/text_me_item_title_6"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"/>
 
         <!--设置-->
         <activity
-            android:name=".ui.SettingActivity"
+            android:name=".ui.me.SettingActivity"
             android:label="@string/text_me_item_title_7"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"/>
 
         <!--聊天-->
         <activity
-            android:name=".ui.ChatActivity"
+            android:name=".ui.chat.ChatActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"/>
 
         <!--聊天信息-->
         <activity
-            android:name=".ui.ChatInfoActivity"
+            android:name=".ui.chat.ChatInfoActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"/>
 
         <!--主题-->
         <activity
-            android:name=".ui.ChatThemeActivity"
+            android:name=".ui.chat.ChatThemeActivity"
             android:label="主题"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"/>
 
         <!--位置-->
         <activity
-            android:name=".ui.LocationActivity"
+            android:name=".ui.chat.LocationActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme"/>
 

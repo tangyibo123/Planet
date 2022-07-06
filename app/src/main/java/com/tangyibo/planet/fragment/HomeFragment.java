@@ -27,15 +27,14 @@ import com.tangyibo.framework.view.tagview.TagCloudView;
 import com.tangyibo.framework.utils.CommonUtils;
 import com.tangyibo.framework.utils.LogUtils;
 import com.tangyibo.framework.view.DialogView;
-import com.tangyibo.planet.MainActivity;
 import com.tangyibo.planet.R;
 
 import com.tangyibo.framework.view.LoadingView;
 import com.tangyibo.planet.adapter.CloudTagAdapter;
 import com.tangyibo.planet.model.PlanetModel;
-import com.tangyibo.planet.ui.AddFriendActivity;
-import com.tangyibo.planet.ui.QrCodeActivity;
-import com.tangyibo.planet.ui.UserInfoActivity;
+import com.tangyibo.planet.ui.home.AddFriendActivity;
+import com.tangyibo.planet.ui.home.QrCodeActivity;
+import com.tangyibo.planet.ui.normal.UserInfoActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -338,8 +337,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }
 
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();

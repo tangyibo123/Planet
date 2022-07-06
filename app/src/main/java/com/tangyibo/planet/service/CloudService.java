@@ -41,15 +41,14 @@ import com.tangyibo.framework.utils.SpUtils;
 import com.tangyibo.framework.utils.TimeUtils;
 import com.tangyibo.planet.MainActivity;
 import com.tangyibo.planet.R;
-import com.tangyibo.planet.ui.ChatActivity;
-import com.tangyibo.planet.ui.NewFriendActivity;
+import com.tangyibo.planet.ui.chat.ChatActivity;
+import com.tangyibo.planet.ui.me.NewFriendActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;

@@ -22,7 +22,7 @@ import com.tangyibo.framework.view.adapter.CommonAdapter;
 import com.tangyibo.framework.view.adapter.CommonViewHolder;
 import com.tangyibo.planet.R;
 import com.tangyibo.planet.model.AllFriendModel;
-import com.tangyibo.planet.ui.UserInfoActivity;
+import com.tangyibo.planet.ui.normal.UserInfoActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;

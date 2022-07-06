@@ -43,9 +43,9 @@ import com.tangyibo.framework.view.VideoJzvdStd;
 import com.tangyibo.framework.view.adapter.CommonAdapter;
 import com.tangyibo.framework.view.adapter.CommonViewHolder;
 import com.tangyibo.planet.R;
-import com.tangyibo.planet.ui.ImagePreviewActivity;
-import com.tangyibo.planet.ui.PushSquareActivity;
-import com.tangyibo.planet.ui.UserInfoActivity;
+import com.tangyibo.planet.ui.normal.ImagePreviewActivity;
+import com.tangyibo.planet.ui.square.PushSquareActivity;
+import com.tangyibo.planet.ui.normal.UserInfoActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
