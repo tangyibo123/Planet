@@ -31,7 +31,7 @@ JDK：1.8
 
 ### 星球首页（HomeFragment）
 
-![img/home.jpg](home.jpg)
+![img/home.jpg](img/home.jpg)
 
 ### 广场（SquareFragment）
 
@@ -150,7 +150,7 @@ JDK：1.8
 
 ## 我的
 
-<img src="Screenshot_1657109238.png" width="35%" ></img>
+<img src="img/Screenshot_1657109238.png" width="35%" ></img>
 
 ### 更改信息
 
